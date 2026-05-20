@@ -1,0 +1,158 @@
+/* ====================== Основные настройки ====================== */
+:root {
+  --primary: #1e40af;        /* глубокий синий — доверие и духовность */
+  --primary-hover: #1e3a8a;
+  --accent: #0f766e;         /* teal — спокойствие и осознанность */
+  --accent-light: #14b8a6;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --bg-light: #f8fafc;
+  --spiritual: #4f46e5; 
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ====================== ГЕРОЙ ====================== */
+.hero-bg {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.30)),
+    url('https://images.pexels.com/photos/19826686/pexels-photo-19826686.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+  background-attachment: fixed;
+}
+
+.hero-overlay {
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.75) 100%);
+}
+
+/* ====================== Карточки ====================== */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+}
+
+/* ====================== Кнопки ====================== */
+.btn-test-next {
+  background-color: var(--primary);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-test-next:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgb(30 64 175 / 0.3);
+}
+
+.btn-test-prev {
+  background: white;
+  border: 2px solid #e5e7eb;
+  color: #374151;
+}
+
+.btn-test-prev:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ====================== Адаптивность ====================== */
+@media (max-width: 768px) {
+  .hero-bg {
+    min-height: 70vh;
+    background-attachment: scroll;
+  }
+}
+
+/* ====================== Дополнительные стили ====================== */
+
+/* Плавное появление */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Для страниц тестов */
+.question-card {
+  transition: all 0.3s ease;
+}
+
+.question-card:hover {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+.answer-option {
+  transition: all 0.3s ease;
+}
+
+.answer-option:hover {
+  transform: translateX(8px);
+}
+
+.option-selected {
+  background-color: #e0f2fe;
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+
+/* Прогресс-бар */
+.test-progress-bar {
+  background: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+/*======================= Кнопки в вопросах ===========================*/
+.answer-option {
+  padding: 1.25rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  background-color: white;
+}
+
+.answer-option:hover {
+  border-color: #a5b4fc;
+  background-color: #f8fafc;
+  transform: translateX(6px);
+}
+
+.answer-option.selected {
+  border-color: #4f46e5;
+  background-color: #e0e7ff;
+  transform: scale(1.03);
+  box-shadow: 0 10px 15px -3px rgb(79 70 229 / 0.2);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Опционально: плавная анимация */
+.modal-container {
+  transition: transform 0.3s ease;
+}
+#privacyModal:not(.hidden) .modal-container {
+  transform: scale(1);
+}
