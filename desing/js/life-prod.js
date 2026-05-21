@@ -9,7 +9,7 @@ try {
   gender = participantData.gender || "";
   age = participantData.age || "";
   education = participantData.education || "";
-  console.log("✅ Данные анкеты загружены:", { gender, age, education });
+  console.log("✅ Данные анкеты загружены:", { gender, age, education, participantId });
 } catch (e) {
   console.warn("⚠️ Нет данных анкеты, используются пустые значения");
 }
@@ -72,14 +72,23 @@ const testSequence = [
   { id: "motiv", title: "Шкала мотивации одобрения (Марлоу-Краун)", file: "motiv.html" }
 ];
 
-// === ЗАГРУЗКА ПЕРВОГО БЛОКА ===
+// === ЗАГРУЗКА СТРАНИЦЫ — ПОКАЗЫВАЕМ ИНСТРУКЦИЮ ===
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("%cМетодика Ожигановой загружена (новая версия)", "color: #4f46e5; font-weight: bold");
-const instructionModal = document.getElementById('instructionModal');
+  console.log("%cМетодика Ожигановой загружена", "color: #4f46e5; font-weight: bold");
+  const instructionModal = document.getElementById('instructionModal');
   if (instructionModal) {
     instructionModal.classList.remove('hidden');
   }
 });
+
+// === ЗАКРЫТИЕ ИНСТРУКЦИИ И ЗАПУСК ТЕСТА ===
+function closeInstructionModal() {
+  const modal = document.getElementById('instructionModal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+  loadBlock();
+}
 
 function convertAScore(value, blockIndex) {
   const base = value + 4;
@@ -157,7 +166,6 @@ function renderScale(type, blockIndex, selectedValue) {
     <div class="space-y-6">
       <h4 class="font-semibold text-lg text-gray-800">${isA ? "Что вы делаете?" : "Почему вы это делаете?"}</h4>
 
-      <!-- Левое утверждение -->
       <div class="flex items-start gap-3">
         <div class="min-w-16 text-center font-semibold text-red-600">–3</div>
         <div class="flex-1 p-4 bg-gray-50 border border-gray-200 rounded-xl">
@@ -165,7 +173,6 @@ function renderScale(type, blockIndex, selectedValue) {
         </div>
       </div>
 
-      <!-- Правое утверждение -->
       <div class="flex items-start gap-3 justify-end">
         <div class="flex-1 p-4 bg-gray-50 border border-gray-200 rounded-xl text-right">
           <span class="text-gray-800 leading-relaxed">${statements[1]}</span>
@@ -173,7 +180,6 @@ function renderScale(type, blockIndex, selectedValue) {
         <div class="min-w-16 text-center font-semibold text-green-600">+3</div>
       </div>
 
-      <!-- Шкала -->
       <div class="flex justify-center items-center gap-2 mt-4">
         ${values.map(val => `
           <button
@@ -335,7 +341,6 @@ function restartTest() {
   document.getElementById('result-screen').classList.add('hidden');
 }
 
-// === ПЕРЕХОД К СЛЕДУЮЩЕМУ ТЕСТУ ===
 function goToNextTest() {
   const result = calculateResult();
   const testResults = JSON.parse(localStorage.getItem('testResults') || '[]');
@@ -359,12 +364,4 @@ function goToNextTest() {
   } else {
     window.location.href = "../complete.html";
   }
-  function closeInstructionModal() {
-  const modal = document.getElementById('instructionModal');
-  if (modal) {
-    modal.classList.add('hidden');
-  }
-  // Запускаем загрузку первого блока теста
-  loadBlock();
-}
 }
