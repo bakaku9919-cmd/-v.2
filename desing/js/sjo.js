@@ -149,19 +149,25 @@ function prevQuestion() {
   }
 }
 
+function getNormalizedAnswers() {
+  return answers.map((val, idx) => {
+    if (reverseItems.includes(idx)) {
+      return -val;
+    }
+    return val;
+  });
+}
+
 // === РАСЧЁТ РЕЗУЛЬТАТОВ ===
 function calculateResult() {
+  const normalized = getNormalizedAnswers();
   const scaleResults = {};
 
   Object.keys(scales).forEach(name => {
     const indices = scales[name];
     let rawScore = 0;
     indices.forEach(idx => {
-      let val = answers[idx] || 0;
-      if (reverseItems.includes(idx)) {
-        val = -val;
-      }
-      rawScore += val;
+      rawScore += normalized[idx] || 0;
     });
     const maxPoints = indices.length * 3;
     const positiveScore = rawScore + maxPoints;
@@ -170,12 +176,7 @@ function calculateResult() {
   });
 
   // Общий результат
-  let totalRaw = 0;
-  answers.forEach((val, idx) => {
-    let v = val || 0;
-    if (reverseItems.includes(idx)) v = -v;
-    totalRaw += v;
-  });
+  let totalRaw = normalized.reduce((sum, val) => sum + (val || 0), 0);
   const totalPositive = totalRaw + 60;
   const totalPercent = Math.round((totalPositive / 120) * 100);
 
