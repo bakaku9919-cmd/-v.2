@@ -81,13 +81,13 @@ function loadQuestion() {
   const optionsDiv = document.getElementById('options');
   optionsDiv.innerHTML = `
     <div class="grid grid-cols-1 gap-3">
-      <div onclick="selectAnswer(3)" class="answer-option">3 — Абсолютно верно</div>
-      <div onclick="selectAnswer(2)" class="answer-option">2 — Да, чаще всего</div>
-      <div onclick="selectAnswer(1)" class="answer-option">1 — Скорее верно</div>
-      <div onclick="selectAnswer(0)" class="answer-option">0 — Затрудняюсь ответить</div>
-      <div onclick="selectAnswer(-1)" class="answer-option">-1 — Скорее не верно</div>
-      <div onclick="selectAnswer(-2)" class="answer-option">-2 — Неверно</div>
-      <div onclick="selectAnswer(-3)" class="answer-option">-3 — Совсем, категорически не верно</div>
+      <div onclick="selectAnswer(3)" class="answer-option">3  Абсолютно верно</div>
+      <div onclick="selectAnswer(2)" class="answer-option">2  Да, чаще всего</div>
+      <div onclick="selectAnswer(1)" class="answer-option">1  Скорее верно</div>
+      <div onclick="selectAnswer(0)" class="answer-option">0  Затрудняюсь ответить</div>
+      <div onclick="selectAnswer(-1)" class="answer-option">-1  Скорее не верно</div>
+      <div onclick="selectAnswer(-2)" class="answer-option">-2  Неверно</div>
+      <div onclick="selectAnswer(-3)" class="answer-option">-3  Совсем, категорически не верно</div>
     </div>
   `;
 
@@ -133,27 +133,22 @@ function prevQuestion() {
 
 // === Расчёт результата ===
 function calculateResult() {
-  // === ШКАЛА ЛЖИ (нормализуем из -3..+3 в 0..6) ===
+  // 1. Шкала лжи (нормализуем -3..+3 в 0..6)
   const lieScore = lieScaleIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
-    // Преобразуем: -3 → 0, -2 → 1, -1 → 2, 0 → 3, 1 → 4, 2 → 5, 3 → 6
-    const normalized = val + 3;
-    return sum + normalized;
+    return sum + (val + 3); // Сдвигаем шкалу с [-3,3] на [0,6]
   }, 0);
 
   // Проверка: допустимое количество баллов — до 18
   if (lieScore > 18) {
-    return { valid: false, lieScore };
+    return { valid: false, lieScore: lieScore };
   }
 
   // === ПРЯМЫЕ БАЛЛЫ (оставляем как есть, от -3 до +3) ===
   const directScore = directScoreIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
   
-  // === ОБРАТНЫЕ БАЛЛЫ (инверсия) ===
-  const invertedScore = invertedScoreIndices.reduce((sum, idx) => {
-    const val = answers[idx] || 0;
-    return sum + (-val);
-  }, 0);
+  // 3. Обратные баллы 
+  const invertedScore = invertedScoreIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
 
   // === ОБЩИЙ БАЛЛ АЛЬТРУИЗМА ===
   const totalAltruismRaw = directScore + invertedScore;  // диапазон от -54 до +54
