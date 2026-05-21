@@ -140,7 +140,6 @@ function loadBlock() {
       <!-- Задание В -->
       <div class="p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 rounded-2xl">
         <h4 class="font-semibold text-lg text-indigo-700 mb-3">В.</h4>
-        <p class="text-gray-700 text-sm mb-4">Приведите примеры ваших реальных достижений в этой области:</p>
         <textarea 
           id="v-${currentBlock}" 
           rows="3" 
@@ -164,7 +163,7 @@ function renderScale(type, blockIndex, selectedValue) {
 
   return `
     <div class="space-y-6">
-      <h4 class="font-semibold text-lg text-gray-800">${isA ? "Что вы делаете?" : "Почему вы это делаете?"}</h4>
+      <h4 class="font-semibold text-lg text-gray-800">${isA ? "" : ""}</h4>
 
       <div class="flex items-start gap-3">
         <div class="min-w-16 text-center font-semibold text-red-600">–3</div>
