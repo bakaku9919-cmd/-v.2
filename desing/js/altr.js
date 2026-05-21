@@ -81,13 +81,13 @@ function loadQuestion() {
   const optionsDiv = document.getElementById('options');
   optionsDiv.innerHTML = `
     <div class="grid grid-cols-1 gap-3">
-      <div onclick="selectAnswer(6)" class="answer-option">6 — Полностью согласен</div>
-      <div onclick="selectAnswer(5)" class="answer-option">5 — Согласен</div>
-      <div onclick="selectAnswer(4)" class="answer-option">4 — Скорее согласен</div>
-      <div onclick="selectAnswer(3)" class="answer-option">3 — Нейтрально</div>
-      <div onclick="selectAnswer(2)" class="answer-option">2 — Скорее не согласен</div>
-      <div onclick="selectAnswer(1)" class="answer-option">1 — Не согласен</div>
-      <div onclick="selectAnswer(0)" class="answer-option">0 — Полностью не согласен</div>
+      <div onclick="selectAnswer(3)" class="answer-option">3 — Абсолютно верно</div>
+      <div onclick="selectAnswer(2)" class="answer-option">2 — Да, чаще всего</div>
+      <div onclick="selectAnswer(1)" class="answer-option">1 — Скорее верно</div>
+      <div onclick="selectAnswer(0)" class="answer-option">0 — Затрудняюсь ответить</div>
+      <div onclick="selectAnswer(-1)" class="answer-option">-1 — Скорее не верно</div>
+      <div onclick="selectAnswer(-2)" class="answer-option">-2 — Неверно</div>
+      <div onclick="selectAnswer(-3)" class="answer-option">-3 — Совсем, категорически не верно</div>
     </div>
   `;
 
@@ -99,7 +99,8 @@ function selectAnswer(value) {
 
   document.querySelectorAll('.answer-option').forEach(el => {
     el.classList.remove('selected', 'border-indigo-600', 'bg-indigo-50', 'shadow-md');
-    const match = el.getAttribute('onclick')?.match(/selectAnswer\((\d)\)/);
+    // Исправленное регулярное выражение для отрицательных чисел
+    const match = el.getAttribute('onclick')?.match(/selectAnswer\((-?\d+)\)/);
     if (match && parseInt(match[1]) === value) {
       el.classList.add('selected', 'border-indigo-600', 'bg-indigo-50', 'shadow-md');
     }
@@ -132,33 +133,46 @@ function prevQuestion() {
 
 // === Расчёт результата ===
 function calculateResult() {
-  const lieScore = lieScaleIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
+  // === ШКАЛА ЛЖИ (нормализуем из -3..+3 в 0..6) ===
+  const lieScore = lieScaleIndices.reduce((sum, idx) => {
+    const val = answers[idx] || 0;
+    // Преобразуем: -3 → 0, -2 → 1, -1 → 2, 0 → 3, 1 → 4, 2 → 5, 3 → 6
+    const normalized = val + 3;
+    return sum + normalized;
+  }, 0);
 
+  // Проверка: допустимое количество баллов — до 18
   if (lieScore > 18) {
     return { valid: false, lieScore };
   }
 
+  // === ПРЯМЫЕ БАЛЛЫ (оставляем как есть, от -3 до +3) ===
   const directScore = directScoreIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
+  
+  // === ОБРАТНЫЕ БАЛЛЫ (инверсия) ===
   const invertedScore = invertedScoreIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
-    return sum + (6 - val);
+    return sum + (-val);
   }, 0);
 
-  const totalAltruism = directScore + invertedScore;
+  // === ОБЩИЙ БАЛЛ АЛЬТРУИЗМА ===
+  const totalAltruismRaw = directScore + invertedScore;  // диапазон от -54 до +54
+  const totalAltruism = totalAltruismRaw + 54;  // переводим в 0..108
   const maxAltruism = 108;
   const percentage = Math.round((totalAltruism / maxAltruism) * 100);
 
+  // === ИНТЕРПРЕТАЦИЯ ===
   let level = "", description = "";
-  if (totalAltruism >= 90) {
+  if (percentage >= 83) {
     level = "Очень высокий уровень альтруизма";
     description = "Вы склонны к бескорыстной помощи, состраданию и самопожертвованию. Для вас важно благополучие других.";
-  } else if (totalAltruism >= 70) {
+  } else if (percentage >= 65) {
     level = "Высокий уровень альтруизма";
     description = "Вы часто помогаете другим, руководствуясь этическими нормами и чувством долга.";
-  } else if (totalAltruism >= 50) {
+  } else if (percentage >= 46) {
     level = "Средний уровень альтруизма";
     description = "Вы помогаете, но в разумных пределах, с учётом своих возможностей и интересов.";
-  } else if (totalAltruism >= 30) {
+  } else if (percentage >= 28) {
     level = "Низкий уровень альтруизма";
     description = "Вы склонны к рациональному подходу. Помощь оправдана только при наличии выгоды или обязанности.";
   } else {
