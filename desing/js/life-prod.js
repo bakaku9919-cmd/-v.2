@@ -75,7 +75,10 @@ const testSequence = [
 // === ЗАГРУЗКА ПЕРВОГО БЛОКА ===
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%cМетодика Ожигановой загружена (новая версия)", "color: #4f46e5; font-weight: bold");
-  loadBlock();
+const instructionModal = document.getElementById('instructionModal');
+  if (instructionModal) {
+    instructionModal.classList.remove('hidden');
+  }
 });
 
 function convertAScore(value, blockIndex) {
@@ -115,21 +118,19 @@ function loadBlock() {
 
       <!-- Задание А -->
       <div class="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-        <h4 class="font-semibold text-lg text-indigo-700 mb-1">А. Что вы делаете?</h4>
-        <p class="text-gray-600 text-sm mb-5">Выберите, насколько это соответствует вашей реальности.</p>
+        <h4 class="font-semibold text-lg text-indigo-700 mb-1">А.</h4>
         ${renderScale('A', currentBlock, aVal)}
       </div>
 
       <!-- Задание Б -->
       <div class="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-        <h4 class="font-semibold text-lg text-indigo-700 mb-1">Б. Почему вы это делаете?</h4>
-        <p class="text-gray-600 text-sm mb-5">Укажите мотивацию вашего поведения.</p>
+        <h4 class="font-semibold text-lg text-indigo-700 mb-1">Б.</h4>
         ${renderScale('B', currentBlock, bVal)}
       </div>
 
       <!-- Задание В -->
       <div class="p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 rounded-2xl">
-        <h4 class="font-semibold text-lg text-indigo-700 mb-3">В. Расскажите подробно</h4>
+        <h4 class="font-semibold text-lg text-indigo-700 mb-3">В.</h4>
         <p class="text-gray-700 text-sm mb-4">Приведите примеры ваших реальных достижений в этой области:</p>
         <textarea 
           id="v-${currentBlock}" 
@@ -358,4 +359,12 @@ function goToNextTest() {
   } else {
     window.location.href = "../complete.html";
   }
+  function closeInstructionModal() {
+  const modal = document.getElementById('instructionModal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+  // Запускаем загрузку первого блока теста
+  loadBlock();
+}
 }
