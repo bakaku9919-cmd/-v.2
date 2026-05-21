@@ -72,7 +72,7 @@ const testSequence = [
   { id: "motiv", title: "Шкала мотивации одобрения (Марлоу-Краун)", file: "motiv.html" }
 ];
 
-// === ЗАГРУЗКА СТРАНИЦЫ — ПОКАЗЫВАЕМ ИНСТРУКЦИЮ ===
+// === ЗАГРУЗКА СТРАНИЦЫ —  ИНСТРУКЦИЯ ===
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%cМетодика Ожигановой загружена", "color: #4f46e5; font-weight: bold");
   const instructionModal = document.getElementById('instructionModal');
@@ -122,7 +122,6 @@ function loadBlock() {
     <div class="space-y-10">
       <div class="text-center">
         <h3 class="text-2xl font-semibold text-gray-800">Блок ${currentBlock + 1}</h3>
-        <p class="text-gray-600">Оцените свою жизнедеятельность ${blockNames[currentBlock]}</p>
       </div>
 
       <!-- Задание А -->
