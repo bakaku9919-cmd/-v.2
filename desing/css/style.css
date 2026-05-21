@@ -1,8 +1,8 @@
 /* ====================== Основные настройки ====================== */
 :root {
-  --primary: #1e40af;        /* глубокий синий — доверие и духовность */
+  --primary: #1e40af;        /* глубокий синий */
   --primary-hover: #1e3a8a;
-  --accent: #0f766e;         /* teal — спокойствие и осознанность */
+  --accent: #0f766e;         
   --accent-light: #14b8a6;
   --text-dark: #1f2937;
   --text-light: #6b7280;
@@ -153,6 +153,20 @@ h1, h2, h3, h4 {
 .modal-container {
   transition: transform 0.3s ease;
 }
+
 #privacyModal:not(.hidden) .modal-container {
   transform: scale(1);
+}
+#instructionModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#instructionModal.hidden {
+  display: none !important;
+}
+
+.modal-container {
+  pointer-events: auto;
 }
