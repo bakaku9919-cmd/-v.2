@@ -144,7 +144,7 @@ function calculateResult() {
     return { valid: false, lieScore: lieScore };
   }
 
-  / // === ПРЯМЫЕ БАЛЛЫ (0-6) ===
+  // === ПРЯМЫЕ БАЛЛЫ (0-6) ===
   const directScore = directScoreIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
     return sum + (val + 3);
