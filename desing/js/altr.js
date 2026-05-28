@@ -14,7 +14,6 @@ try {
   console.warn("⚠️ Нет данных анкеты, используются пустые значения");
 }
 
-// === СОСТОЯНИЕ ТЕСТА ===
 let currentQuestion = 0;
 let answers = [];
 
@@ -45,12 +44,11 @@ const questions = [
   "Я никогда не обижал другого человека"
 ];
 
-// Группы вопросов (индексы с 0)
+// Вопросы (индексы с 0)
 const lieScaleIndices = [0, 1, 12, 13, 22];        // шкала лжи
 const directScoreIndices = [3, 5, 7, 9, 11, 15, 17, 19, 21];   // прямые
 const invertedScoreIndices = [2, 4, 6, 8, 10, 14, 16, 18, 20]; // обратные
 
-// === ПОРЯДОК ТЕСТОВ ===
 const testSequence = [
   { id: "spiritual-orientation", title: "Духовная ориентация личности", file: "spirit-orient.html" },
   { id: "spiritual-personality", title: "Духовная личность", file: "spirit-person.html" },
@@ -64,7 +62,6 @@ const testSequence = [
   { id: "motiv", title: "Шкала мотивации одобрения (Марлоу-Краун)", file: "motiv.html" }
 ];
 
-// === ЗАГРУЗКА ПЕРВОГО ВОПРОСА ===
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%cТест на альтруизм загружен (новая версия)", "color: #4f46e5; font-weight: bold");
   document.getElementById('total-questions').textContent = questions.length;
@@ -99,7 +96,6 @@ function selectAnswer(value) {
 
   document.querySelectorAll('.answer-option').forEach(el => {
     el.classList.remove('selected', 'border-indigo-600', 'bg-indigo-50', 'shadow-md');
-    // Исправленное регулярное выражение для отрицательных чисел
     const match = el.getAttribute('onclick')?.match(/selectAnswer\((-?\d+)\)/);
     if (match && parseInt(match[1]) === value) {
       el.classList.add('selected', 'border-indigo-600', 'bg-indigo-50', 'shadow-md');
@@ -131,37 +127,37 @@ function prevQuestion() {
   }
 }
 
-// === Расчёт результата ===
+// === Расчёт ===
 function calculateResult() {
-  // 1. Шкала лжи (нормализуем -3..+3 в 0..6)
+  // 1. Шкала лжи (из -3..+3 в 0..6)
   const lieScore = lieScaleIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
-    return sum + (val + 3); // Сдвигаем шкалу с [-3,3] на [0,6]
+    return sum + (val + 3); // Сдвиг с [-3,3] на [0,6]
   }, 0);
 
-  // Проверка: допустимое количество баллов — до 18
+  // Проверка до 18
   if (lieScore > 18) {
     return { valid: false, lieScore: lieScore };
   }
 
-  // === ПРЯМЫЕ БАЛЛЫ (0-6) ===
+  // === Прямые (0-6) ===
   const directScore = directScoreIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
     return sum + (val + 3);
   }, 0);
 
-  // === ОБРАТНЫЕ БАЛЛЫ (0-6) — инверсия! ===
+  // === Обратные (0-6) — инверсия! ===
   const invertedScore = invertedScoreIndices.reduce((sum, idx) => {
     const val = answers[idx] || 0;
     return sum + (3 - val);  // -3→6, -2→5, -1→4, 0→3, 1→2, 2→1, 3→0
   }, 0);
 
-  // === ОБЩИЙ БАЛЛ АЛЬТРУИЗМА (0-108) ===
+  // === Общий альтр (0-108) ===
   const totalAltruism = directScore + invertedScore;  // диапазон 0-108
   const maxAltruism = 108;
   const percentage = Math.round((totalAltruism / maxAltruism) * 100);
 
-  // === ИНТЕРПРЕТАЦИЯ ===
+  // === Пояснения ===
   let level = "", description = "";
   if (percentage >= 83) {
     level = "Очень высокий уровень альтруизма";
@@ -193,7 +189,7 @@ function calculateResult() {
   };
 }
 
-// === Финиш: вывод результата ===
+// === Вывод результата ===
 async function finishTest() {
   const result = calculateResult();
 
@@ -224,7 +220,7 @@ async function finishTest() {
   await saveToGoogleSheets(result);
 }
 
-// === Отправка в Google Sheets ===
+// === Google Sheets ===
 async function saveToGoogleSheets(result) {
   const scriptURL = "https://script.google.com/macros/s/AKfycbw0jaAr2DBRKEQm3eyOcRfgqdw_DeSX0QD_VOfjCW_J6Gwrl-PJ-7xnIK8El-N-1WWb/exec";
   const formData = new FormData();
@@ -260,7 +256,7 @@ function restartTest() {
   location.reload();
 }
 
-// === ПЕРЕХОД К СЛЕДУЮЩЕМУ ТЕСТУ ===
+// === Переход дальше ===
 function goToNextTest() {
   const result = calculateResult();
   const testResults = JSON.parse(localStorage.getItem('testResults') || '[]');
