@@ -144,15 +144,20 @@ function calculateResult() {
     return { valid: false, lieScore: lieScore };
   }
 
-  // === ПРЯМЫЕ БАЛЛЫ (оставляем как есть, от -3 до +3) ===
-  const directScore = directScoreIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
-  
-  // 3. Обратные баллы 
-  const invertedScore = invertedScoreIndices.reduce((sum, idx) => sum + (answers[idx] || 0), 0);
+  / // === ПРЯМЫЕ БАЛЛЫ (0-6) ===
+  const directScore = directScoreIndices.reduce((sum, idx) => {
+    const val = answers[idx] || 0;
+    return sum + (val + 3);
+  }, 0);
 
-  // === ОБЩИЙ БАЛЛ АЛЬТРУИЗМА ===
-  const totalAltruismRaw = directScore + invertedScore;  // диапазон от -54 до +54
-  const totalAltruism = totalAltruismRaw + 54;  // переводим в 0..108
+  // === ОБРАТНЫЕ БАЛЛЫ (0-6) — инверсия! ===
+  const invertedScore = invertedScoreIndices.reduce((sum, idx) => {
+    const val = answers[idx] || 0;
+    return sum + (3 - val);  // -3→6, -2→5, -1→4, 0→3, 1→2, 2→1, 3→0
+  }, 0);
+
+  // === ОБЩИЙ БАЛЛ АЛЬТРУИЗМА (0-108) ===
+  const totalAltruism = directScore + invertedScore;  // диапазон 0-108
   const maxAltruism = 108;
   const percentage = Math.round((totalAltruism / maxAltruism) * 100);
 
