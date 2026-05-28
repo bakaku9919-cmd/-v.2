@@ -170,15 +170,17 @@ function calculateResult() {
       rawScore += normalized[idx] || 0;
     });
     const maxPoints = indices.length * 3;
-    const positiveScore = rawScore + maxPoints;
-    const percent = Math.round((positiveScore / (maxPoints * 2)) * 100);
-    scaleResults[name] = { score: positiveScore, max: maxPoints * 2, percent };
+    const positiveScore = rawScore + maxPoints + (indices.length * 2);
+    const maxScoreForScale = maxPoints * 2 + (indices.length * 2);
+    const percent = Math.round((positiveScore / maxScoreForScale) * 100);
+    scaleResults[name] = { score: positiveScore, max: maxScoreForScale, percent };
   });
 
   // Общий результат
   let totalRaw = normalized.reduce((sum, val) => sum + (val || 0), 0);
-  const totalPositive = totalRaw + 60;
-  const totalPercent = Math.round((totalPositive / 120) * 100);
+  const totalPositive = totalRaw + 80;
+  const totalMax = 140;
+  const totalPercent = Math.round((totalPositive / totalMax) * 100);
 
   let level, description;
   if (totalPercent >= 80) {
@@ -198,7 +200,7 @@ function calculateResult() {
     description = "Возможно, вы переживаете экзистенциальный вакуум.";
   }
 
-  return { scaleResults, totalScore: totalPositive, totalMax: 120, totalPercent, level, description };
+  return { scaleResults, totalScore: totalPositive, totalMax, totalPercent, level, description };
 }
 
 // === ФИНИШ ТЕСТА ===
