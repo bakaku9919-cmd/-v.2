@@ -169,16 +169,16 @@ function calculateResult() {
     indices.forEach(idx => {
       rawScore += normalized[idx] || 0;
     });
-    const maxPoints = indices.length * 3;
-    const positiveScore = rawScore + maxPoints + (indices.length * 2);
-    const maxScoreForScale = maxPoints * 2 + (indices.length * 2);
+    // Переводим из -3..+3 в 1..7: добавляем 4 за каждый пункт
+    const positiveScore = rawScore + (indices.length * 4);  // ← было *5, стало *4
+    const maxScoreForScale = indices.length * 7;            // максимум 7 за пункт
     const percent = Math.round((positiveScore / maxScoreForScale) * 100);
     scaleResults[name] = { score: positiveScore, max: maxScoreForScale, percent };
   });
 
   // Общий результат
   let totalRaw = normalized.reduce((sum, val) => sum + (val || 0), 0);
-  const totalPositive = totalRaw + 80;
+  const totalPositive = totalRaw + 80;   // 20 пунктов × 4 = 80
   const totalMax = 140;
   const totalPercent = Math.round((totalPositive / totalMax) * 100);
 
