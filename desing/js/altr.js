@@ -173,6 +173,7 @@ function calculateResult() {
   } else {
     level = "Очень низкий уровень альтруизма";
     description = "Вы ориентированы на личные интересы. Помощь другим кажется вам бессмысленной или рискованной.";
+    } 
   } else if (gender === "female") {
     if (totalAltruism >= 80) {
     level = "Высокий уровень альтруизма";
