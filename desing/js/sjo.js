@@ -1,4 +1,4 @@
-// === ЗАГРУЗКА ДАННЫХ ИЗ АНКЕТЫ ===
+// === ДАННЫе ИЗ АНКЕТЫ ===
 let gender = "";
 let age = "";
 let education = "";
@@ -54,7 +54,7 @@ const scales = {
 // Пункты, требующие инверсии
 const reverseItems = [1, 4, 5, 6, 9, 12, 13, 14, 17, 18, 19];
 
-// === ПОРЯДОК ТЕСТОВ (ЕДИНЫЙ ДЛЯ ВСЕХ) ===
+// === ПОРЯДОК ТЕСТОВ ===
 const testSequence = [
   { id: "spiritual-orientation", title: "Духовная ориентация личности", file: "spirit-orient.html" },
   { id: "spiritual-personality", title: "Духовная личность", file: "spirit-person.html" },
@@ -68,7 +68,6 @@ const testSequence = [
   { id: "motiv", title: "Шкала мотивации одобрения (Марлоу-Краун)", file: "motiv.html" }
 ];
 
-// === ЗАГРУЗКА ПЕРВОГО ВОПРОСА ===
 document.addEventListener('DOMContentLoaded', () => {
   console.log("%cТест СЖО загружен (новая версия)", "color: #4f46e5; font-weight: bold");
   loadQuestion();
@@ -158,30 +157,85 @@ function getNormalizedAnswers() {
   });
 }
 
-// === РАСЧЁТ РЕЗУЛЬТАТОВ ===
+// === РАСЧЁТ ===
 function calculateResult() {
   const normalized = getNormalizedAnswers();
   const scaleResults = {};
 
+   // Нормативы для шкал (M и о)
+  const norms = {
+    male: {
+      "Цели в жизни": { mean: 32.90, sd: 5.92 },
+      "Процесс жизни": { mean: 31.09, sd: 4.44 },
+      "Результативность жизни": { mean: 25.46, sd: 4.30 },
+      "Локус контроля – Я": { mean: 21.13, sd: 3.85 },
+      "Локус контроля – жизнь": { mean: 30.14, sd: 5.80 }
+    },
+    female: {
+      "Цели в жизни": { mean: 29.38, sd: 6.24 },
+      "Процесс жизни": { mean: 28.80, sd: 6.14 },
+      "Результативность жизни": { mean: 23.30, sd: 4.95 },
+      "Локус контроля – Я": { mean: 18.58, sd: 4.30 },
+      "Локус контроля – жизнь": { mean: 28.70, sd: 6.10 }
+    }
+  };
+
+  function getLevel(score, mean, sd) {
+    if (score >= mean + 1.5 * sd) return "Очень высокий";
+    if (score >= mean + 0.5 * sd) return "Высокий";
+    if (score >= mean - 0.5 * sd) return "Средний";
+    if (score >= mean - 1.5 * sd) return "Низкий";
+    return "Очень низкий";
+  }
+  
+  const normalData = (gender === "female") ? norms.female : norms.male;
+  
   Object.keys(scales).forEach(name => {
     const indices = scales[name];
     let rawScore = 0;
     indices.forEach(idx => {
       rawScore += normalized[idx] || 0;
     });
-    // Переводим из -3..+3 в 1..7: добавляем 4 за каждый пункт
-    const positiveScore = rawScore + (indices.length * 4);  // ← было *5, стало *4
-    const maxScoreForScale = indices.length * 7;            // максимум 7 за пункт
+    // Перевод из -3..+3 в 1..7
+    const positiveScore = rawScore + (indices.length * 4);  
+    const maxScoreForScale = indices.length * 7;            
     const percent = Math.round((positiveScore / maxScoreForScale) * 100);
     scaleResults[name] = { score: positiveScore, max: maxScoreForScale, percent };
   });
 
+    const norm = normalData[name];
+    const level = getLevel(positiveScore, norm.mean, norm.sd);
+    
+    scaleResults[name] = { 
+      score: positiveScore, 
+      max: maxScoreForScale, 
+      percent,
+      level 
+    };
+  });
+
   // Общий результат
   let totalRaw = normalized.reduce((sum, val) => sum + (val || 0), 0);
-  const totalPositive = totalRaw + 80;   // 20 пунктов × 4 = 80
+  const totalPositive = totalRaw + 80;  
   const totalMax = 140;
   const totalPercent = Math.round((totalPositive / totalMax) * 100);
 
+    const totalNorms = {
+    male: { mean: 103.10, sd: 15.03 },
+    female: { mean: 95.76, sd: 16.54 }
+  };
+
+   const totalNorm = (gender === "female") ? totalNorms.female : totalNorms.male;
+  
+  function getTotalLevel(score, mean, sd) {
+    if (score >= mean + 1.5 * sd) return "Очень высокий уровень";
+    if (score >= mean + 0.5 * sd) return "Высокий уровень";
+    if (score >= mean - 0.5 * sd) return "Средний уровень";
+    if (score >= mean - 1.5 * sd) return "Низкий уровень";
+    return "Очень низкий уровень";
+  }
+  
+  const level = getTotalLevel(totalScore, totalNorm.mean, totalNorm.sd);
   let level, description;
   if (totalPercent >= 80) {
     level = "Очень высокий уровень";
@@ -208,15 +262,19 @@ async function finishTest() {
   const result = calculateResult();
   document.getElementById('test-screen').classList.add('hidden');
 
-  let scaleHTML = "<h3 class='text-xl font-medium mt-8 mb-4'>По шкалам:</h3><ul class='space-y-4'>";
-  Object.keys(result.scaleResults).forEach(name => {
-    const s = result.scaleResults[name];
-    const barColor = s.percent > 65 ? 'bg-green-500' : s.percent > 45 ? 'bg-yellow-500' : 'bg-red-500';
-    scaleHTML += `<li><strong>${name}:</strong> ${s.score} из ${s.max} (${s.percent}%)
-      <div class="w-full bg-gray-200 h-2 rounded mt-1"><div class="h-2 rounded ${barColor}" style="width: ${s.percent}%"></div></div>
-    </li>`;
-  });
-  scaleHTML += "</ul>";
+ let scaleHTML = "<h3 class='text-xl font-medium mt-8 mb-4'>По шкалам:</h3><ul class='space-y-4'>";
+Object.keys(result.scaleResults).forEach(name => {
+  const s = result.scaleResults[name];
+  const barColor = s.percent > 65 ? 'bg-green-500' : s.percent > 45 ? 'bg-yellow-500' : 'bg-red-500';
+  scaleHTML += `<li>
+    <strong>${name}:</strong> ${s.score} из ${s.max} (${s.percent}%) 
+    <span class="text-sm text-gray-500">— ${s.level}</span>
+    <div class="w-full bg-gray-200 h-2 rounded mt-1">
+      <div class="h-2 rounded ${barColor}" style="width: ${s.percent}%"></div>
+    </div>
+  </li>`;
+});
+scaleHTML += "</ul>";
 
   document.getElementById('result-score').innerHTML = `${result.totalScore} <span class="text-2xl text-gray-500">из ${result.totalMax}</span>`;
   document.getElementById('result-level').textContent = result.level;
