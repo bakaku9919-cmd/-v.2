@@ -187,8 +187,8 @@ function calculateResult() {
   } else {
     level = "Очень низкий уровень альтруизма";
     description = "Вы ориентированы на личные интересы. Помощь другим кажется вам бессмысленной или рискованной.";
+    }
   }
-
   return {
     valid: true,
     lieScore,
