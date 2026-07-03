@@ -25,11 +25,11 @@
     <div class="question-card">
       <h2 class="text-xl font-bold text-center mb-2">Опросник</h2>
       <p class="text-sm text-gray-500 text-center mb-8">
-        Оцените, насколько каждое утверждение соответствует Вам, по шкале от 1 до 5.
+        Оцените, насколько каждое утверждение соответствует Вам.
       </p>
-      
+
       <!-- БЛОК 1 -->
-   
+
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
         <h3 class="text-lg font-semibold mb-4">Блок 1</h3>
 
@@ -38,11 +38,13 @@
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
           <p class="mb-2">Я достиг/ла высоких результатов в учебе</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a1" value="-3"> -3</label>
+            <label><input type="radio" name="a1" value="-2"> -2</label>
+            <label><input type="radio" name="a1" value="-1"> -1</label>
+            <label><input type="radio" name="a1" value="0"> 0</label>
             <label><input type="radio" name="a1" value="1"> 1</label>
             <label><input type="radio" name="a1" value="2"> 2</label>
             <label><input type="radio" name="a1" value="3"> 3</label>
-            <label><input type="radio" name="a1" value="4"> 4</label>
-            <label><input type="radio" name="a1" value="5"> 5</label>
           </div>
         </div>
 
@@ -51,11 +53,13 @@
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
           <p class="mb-2">Я достиг/ла высоких результатов, чтобы приносить пользу обществу</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b1" value="-3"> -3</label>
+            <label><input type="radio" name="b1" value="-2"> -2</label>
+            <label><input type="radio" name="b1" value="-1"> -1</label>
+            <label><input type="radio" name="b1" value="0"> 0</label>
             <label><input type="radio" name="b1" value="1"> 1</label>
             <label><input type="radio" name="b1" value="2"> 2</label>
             <label><input type="radio" name="b1" value="3"> 3</label>
-            <label><input type="radio" name="b1" value="4"> 4</label>
-            <label><input type="radio" name="b1" value="5"> 5</label>
           </div>
         </div>
 
@@ -66,33 +70,37 @@
           <textarea id="v1" rows="2" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Например: написал(а) лучшую работу на курсах..."></textarea>
         </div>
       </div>
+      
+      <!-- БЛОК 2 -->
 
-      <!-- БЛОК 2-->
-     
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
         <h3 class="text-lg font-semibold mb-4">Блок 2</h3>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я стремлюсь к высоким профессиональным достижениям</p>
+          <p class="mb-2">В своей профессиональной деятельности я не склонен/на стремиться к высоким профессиональным достижениям</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a2" value="-3"> -3</label>
+            <label><input type="radio" name="a2" value="-2"> -2</label>
+            <label><input type="radio" name="a2" value="-1"> -1</label>
+            <label><input type="radio" name="a2" value="0"> 0</label>
             <label><input type="radio" name="a2" value="1"> 1</label>
             <label><input type="radio" name="a2" value="2"> 2</label>
             <label><input type="radio" name="a2" value="3"> 3</label>
-            <label><input type="radio" name="a2" value="4"> 4</label>
-            <label><input type="radio" name="a2" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Я хочу достичь успеха, чтобы мои результаты приносили пользу людям</p>
+          <p class="mb-2">Я достигну успехов в профессиональной деятельности, так как буду стараться выполнять работу как можно лучше, чтобы ее результаты приносили пользу людям</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b2" value="-3"> -3</label>
+            <label><input type="radio" name="b2" value="-2"> -2</label>
+            <label><input type="radio" name="b2" value="-1"> -1</label>
+            <label><input type="radio" name="b2" value="0"> 0</label>
             <label><input type="radio" name="b2" value="1"> 1</label>
             <label><input type="radio" name="b2" value="2"> 2</label>
             <label><input type="radio" name="b2" value="3"> 3</label>
-            <label><input type="radio" name="b2" value="4"> 4</label>
-            <label><input type="radio" name="b2" value="5"> 5</label>
           </div>
         </div>
 
@@ -104,31 +112,35 @@
       </div>
 
       <!-- БЛОК 3 -->
-  
+
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
         <h3 class="text-lg font-semibold mb-4">Блок 3</h3>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я принимаю активное участие в общественной деятельности</p>
+          <p class="mb-2">Я принимаю активное участие в общественной деятельности и достиг/ла в этом успехов</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a3" value="-3"> -3</label>
+            <label><input type="radio" name="a3" value="-2"> -2</label>
+            <label><input type="radio" name="a3" value="-1"> -1</label>
+            <label><input type="radio" name="a3" value="0"> 0</label>
             <label><input type="radio" name="a3" value="1"> 1</label>
             <label><input type="radio" name="a3" value="2"> 2</label>
             <label><input type="radio" name="a3" value="3"> 3</label>
-            <label><input type="radio" name="a3" value="4"> 4</label>
-            <label><input type="radio" name="a3" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Я участвую в общественной работе, чтобы приносить пользу людям</p>
+          <p class="mb-2">Я достиг/ла или хотел/а бы достичь успехов в общественной работе, потому что мне нравится, когда моя деятельность приносит пользу людям и ее высокие результаты делают людей счастливыми</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b3" value="-3"> -3</label>
+            <label><input type="radio" name="b3" value="-2"> -2</label>
+            <label><input type="radio" name="b3" value="-1"> -1</label>
+            <label><input type="radio" name="b3" value="0"> 0</label>
             <label><input type="radio" name="b3" value="1"> 1</label>
             <label><input type="radio" name="b3" value="2"> 2</label>
             <label><input type="radio" name="b3" value="3"> 3</label>
-            <label><input type="radio" name="b3" value="4"> 4</label>
-            <label><input type="radio" name="b3" value="5"> 5</label>
           </div>
         </div>
 
@@ -138,7 +150,7 @@
           <textarea id="v3" rows="2" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Например: организовал(а) волонтёрскую акцию..."></textarea>
         </div>
       </div>
-
+      
       <!-- БЛОК 4 -->
       
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
@@ -146,25 +158,29 @@
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я творческий человек и люблю создавать новые продукты</p>
+          <p class="mb-2">Я мало расположен к творчеству</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a4" value="-3"> -3</label>
+            <label><input type="radio" name="a4" value="-2"> -2</label>
+            <label><input type="radio" name="a4" value="-1"> -1</label>
+            <label><input type="radio" name="a4" value="0"> 0</label>
             <label><input type="radio" name="a4" value="1"> 1</label>
             <label><input type="radio" name="a4" value="2"> 2</label>
             <label><input type="radio" name="a4" value="3"> 3</label>
-            <label><input type="radio" name="a4" value="4"> 4</label>
-            <label><input type="radio" name="a4" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Мне нравится создавать что-то новое, чтобы радовать других</p>
+          <p class="mb-2">Я создаю творческие продукты или, если бы захотел/а их создавать, то потому, что меня привлекает сам процесс творчества и мне доставляет удовольствие то, что мои творческие продукты будут радовать людей и приносить им пользу</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b4" value="-3"> -3</label>
+            <label><input type="radio" name="b4" value="-2"> -2</label>
+            <label><input type="radio" name="b4" value="-1"> -1</label>
+            <label><input type="radio" name="b4" value="0"> 0</label>
             <label><input type="radio" name="b4" value="1"> 1</label>
             <label><input type="radio" name="b4" value="2"> 2</label>
             <label><input type="radio" name="b4" value="3"> 3</label>
-            <label><input type="radio" name="b4" value="4"> 4</label>
-            <label><input type="radio" name="b4" value="5"> 5</label>
           </div>
         </div>
 
@@ -176,31 +192,35 @@
       </div>
 
       <!-- БЛОК 5 -->
-
+      
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
         <h3 class="text-lg font-semibold mb-4">Блок 5</h3>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я забочусь о своей семье и помогаю близким</p>
+          <p class="mb-2">Я забочусь о своей семье</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a5" value="-3"> -3</label>
+            <label><input type="radio" name="a5" value="-2"> -2</label>
+            <label><input type="radio" name="a5" value="-1"> -1</label>
+            <label><input type="radio" name="a5" value="0"> 0</label>
             <label><input type="radio" name="a5" value="1"> 1</label>
             <label><input type="radio" name="a5" value="2"> 2</label>
             <label><input type="radio" name="a5" value="3"> 3</label>
-            <label><input type="radio" name="a5" value="4"> 4</label>
-            <label><input type="radio" name="a5" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Я помогаю семье, потому что люблю её и хочу, чтобы все были счастливы</p>
+          <p class="mb-2">Я занимаюсь семейными делами и помогаю семье, потому что люблю ее; я хочу, чтобы все ее члены были счастливы</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b5" value="-3"> -3</label>
+            <label><input type="radio" name="b5" value="-2"> -2</label>
+            <label><input type="radio" name="b5" value="-1"> -1</label>
+            <label><input type="radio" name="b5" value="0"> 0</label>
             <label><input type="radio" name="b5" value="1"> 1</label>
             <label><input type="radio" name="b5" value="2"> 2</label>
             <label><input type="radio" name="b5" value="3"> 3</label>
-            <label><input type="radio" name="b5" value="4"> 4</label>
-            <label><input type="radio" name="b5" value="5"> 5</label>
           </div>
         </div>
 
@@ -212,31 +232,35 @@
       </div>
 
       <!-- БЛОК 6 -->
-
+      
       <div class="block-section border-b border-gray-200 pb-8 mb-8">
         <h3 class="text-lg font-semibold mb-4">Блок 6</h3>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я уделяю время саморазвитию и самосовершенствованию</p>
+          <p class="mb-2">Я уделяю время самосовершенствованию</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a6" value="-3"> -3</label>
+            <label><input type="radio" name="a6" value="-2"> -2</label>
+            <label><input type="radio" name="a6" value="-1"> -1</label>
+            <label><input type="radio" name="a6" value="0"> 0</label>
             <label><input type="radio" name="a6" value="1"> 1</label>
             <label><input type="radio" name="a6" value="2"> 2</label>
             <label><input type="radio" name="a6" value="3"> 3</label>
-            <label><input type="radio" name="a6" value="4"> 4</label>
-            <label><input type="radio" name="a6" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Я развиваюсь, чтобы стать лучшей версией себя и быть полезным/ой людям</p>
+          <p class="mb-2">Я занимаюсь самосовершенствованием, потому что желаю избавиться от слабостей, которые мешают мне устанавливать теплые дружеские отношения, быть полезным/ой людям</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b6" value="-3"> -3</label>
+            <label><input type="radio" name="b6" value="-2"> -2</label>
+            <label><input type="radio" name="b6" value="-1"> -1</label>
+            <label><input type="radio" name="b6" value="0"> 0</label>
             <label><input type="radio" name="b6" value="1"> 1</label>
             <label><input type="radio" name="b6" value="2"> 2</label>
             <label><input type="radio" name="b6" value="3"> 3</label>
-            <label><input type="radio" name="b6" value="4"> 4</label>
-            <label><input type="radio" name="b6" value="5"> 5</label>
           </div>
         </div>
 
@@ -248,31 +272,35 @@
       </div>
 
       <!-- БЛОК 7 -->
-  
+     
       <div class="block-section pb-4">
         <h3 class="text-lg font-semibold mb-4">Блок 7</h3>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">А.</p>
-          <p class="mb-2">Я люблю проводить свободное время с пользой для себя и других</p>
+          <p class="mb-2">В свободное время я люблю делать что-то интересное и полезное для себя и других</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="a7" value="-3"> -3</label>
+            <label><input type="radio" name="a7" value="-2"> -2</label>
+            <label><input type="radio" name="a7" value="-1"> -1</label>
+            <label><input type="radio" name="a7" value="0"> 0</label>
             <label><input type="radio" name="a7" value="1"> 1</label>
             <label><input type="radio" name="a7" value="2"> 2</label>
             <label><input type="radio" name="a7" value="3"> 3</label>
-            <label><input type="radio" name="a7" value="4"> 4</label>
-            <label><input type="radio" name="a7" value="5"> 5</label>
           </div>
         </div>
 
         <div class="mb-4">
           <p class="text-sm font-medium text-gray-600 mb-1">Б.</p>
-          <p class="mb-2">Я делюсь с другими тем, что узнаю в свободное время</p>
+          <p class="mb-2">Я делюсь с другими тем, что я узнал/а или создал/а на досуге; мне радостно, когда это оказывается полезным и интересным для других</p>
           <div class="flex flex-wrap gap-3">
+            <label><input type="radio" name="b7" value="-3"> -3</label>
+            <label><input type="radio" name="b7" value="-2"> -2</label>
+            <label><input type="radio" name="b7" value="-1"> -1</label>
+            <label><input type="radio" name="b7" value="0"> 0</label>
             <label><input type="radio" name="b7" value="1"> 1</label>
             <label><input type="radio" name="b7" value="2"> 2</label>
             <label><input type="radio" name="b7" value="3"> 3</label>
-            <label><input type="radio" name="b7" value="4"> 4</label>
-            <label><input type="radio" name="b7" value="5"> 5</label>
           </div>
         </div>
 
@@ -293,7 +321,7 @@
   </div>
 
   <script>
-
+    
     let gender = "";
     let age = "";
     let education = "";
@@ -322,7 +350,7 @@
       { id: "motiv", title: "Опросник 10", file: "motiv.html" }
     ];
 
-    //  GOOGLE SHEETS 
+    //GOOGLE SHEETS
     async function saveToGoogleSheets(data) {
       const scriptURL = "https://script.google.com/macros/s/AKfycbxaH8oWEE0mkKv89nnS-IMU4BkfVX9G0MGzcnnc_pUJImb3WO1e0XtdRwKJbUUc4KmuXw/exec";
       const formData = new FormData();
@@ -349,17 +377,15 @@
       }
     }
 
- 
     async function submitAll() {
-      //Сбор А и Б
       const answersA = {};
       const answersB = {};
       const radios = document.querySelectorAll('input[type="radio"]:checked');
 
       radios.forEach(el => {
-        const name = el.name; 
-        const type = name.charAt(0); 
-        const index = parseInt(name.substring(1)); 
+        const name = el.name;
+        const type = name.charAt(0);
+        const index = parseInt(name.substring(1));
         const value = parseInt(el.value);
 
         if (type === 'a') {
@@ -369,8 +395,7 @@
         }
       });
 
-      // Заполненость всего
-      const totalQuestions = 14; 
+      const totalQuestions = 14;
       const answered = Object.keys(answersA).length + Object.keys(answersB).length;
 
       if (answered < totalQuestions) {
@@ -378,21 +403,20 @@
         return;
       }
 
-      // Сбор В
       const openAnswers = {};
       for (let i = 1; i <= 7; i++) {
         const el = document.getElementById(`v${i}`);
         openAnswers[i] = el ? el.value.trim() : "";
       }
 
-      // Результатов
+      // Расчет с инверсией (-3..+3)
       function convertScore(answers, index, isA) {
         const val = answers[index] || 0;
-        const shouldInvert = isA ? [1, 3, 5, 7].includes(index) : [2, 4, 6].includes(index);
-        if (shouldInvert) {
-          return 6 - val;
-        }
-        return val;
+        // Инверсия
+        const shouldInvertA = [1, 3, 5, 7].includes(index);
+        const shouldInvertB = [2, 4, 6].includes(index);
+        const shouldInvert = isA ? shouldInvertA : shouldInvertB;
+        return shouldInvert ? -val : val;
       }
 
       let prodScore = 0;
@@ -403,9 +427,12 @@
         transcScore += convertScore(answersB, i, false);
       }
 
-      const maxScore = 49;
-      const percentProd = Math.round((prodScore / maxScore) * 100);
-      const percentTrans = Math.round((transcScore / maxScore) * 100);
+      const prodScoreAdjusted = prodScore + 49;
+      const transcScoreAdjusted = transcScore + 49;
+      const maxScore = 98;
+
+      const percentProd = Math.round((prodScoreAdjusted / maxScore) * 100);
+      const percentTrans = Math.round((transcScoreAdjusted / maxScore) * 100);
       const totalPercent = Math.round((percentProd + percentTrans) / 2);
 
       let level, description;
@@ -421,8 +448,8 @@
       }
 
       const result = {
-        prodScore,
-        transcScore,
+        prodScore: prodScoreAdjusted,
+        transcScore: transcScoreAdjusted,
         percentProd,
         percentTrans,
         totalPercent,
@@ -433,26 +460,23 @@
 
       console.log("📊 Результаты:", result);
 
-      //localStorage
       const testResults = JSON.parse(localStorage.getItem('testResults') || '[]');
       const currentIndex = parseInt(localStorage.getItem('currentTestIndex') || '0');
 
       testResults[currentIndex] = {
         id: testSequence[currentIndex]?.id || "life-prod",
         name: testSequence[currentIndex]?.title || "Опросник",
-        prodScore,
-        transcScore,
+        prodScore: prodScoreAdjusted,
+        transcScore: transcScoreAdjusted,
         totalPercent,
         level,
         timestamp: new Date().toISOString()
       };
       localStorage.setItem('testResults', JSON.stringify(testResults));
 
-      // Отправка в Google Sheets
       const success = await saveToGoogleSheets(result);
 
       if (success) {
-       
         const nextIndex = currentIndex + 1;
         if (nextIndex < testSequence.length) {
           localStorage.setItem('currentTestIndex', nextIndex);
