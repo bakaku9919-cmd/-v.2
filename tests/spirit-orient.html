@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
 
-  <!-- Навигация -->
+  <!-- Навигация  -->
   <nav>
     <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
       <a href="../index.html" class="text-lg font-bold">Исследование</a>
@@ -53,7 +53,7 @@
   </div>
 
   <script>
-  
+
     let gender = "";
     let age = "";
     let education = "";
@@ -112,12 +112,14 @@
       "Не поддаваться унынию"
     ];
 
+    // Шкалы
     const scales = {
       "Ценностно-смысловые устремления": [3, 5, 6, 8, 11, 21, 26, 28, 32, 36],
       "Высшие нравственные чувства": [1, 4, 7, 13, 15, 16, 17, 20, 27, 34],
       "Склонность к добродетельному поведению": [9, 10, 12, 19, 22, 23, 24, 30, 31, 35],
       "Моральная сила духа": [2, 14, 18, 25, 29, 33, 37, 38, 39, 40]
     };
+
 
     const testSequence = [
       { id: "life-prod", title: "Опросник 1", file: "life-prod.html" },
@@ -132,7 +134,7 @@
       { id: "motiv", title: "Опросник 10", file: "motiv.html" }
     ];
 
-
+  
     function renderQuestions() {
       const container = document.getElementById('questionsContainer');
       let html = '';
@@ -167,7 +169,7 @@
       container.innerHTML = html;
     }
 
-    // GOOGLE SHEETS ===
+    // GOOGLE SHEETS
     async function saveToGoogleSheets(data) {
       const scriptURL = "https://script.google.com/macros/s/AKfycbxaH8oWEE0mkKv89nnS-IMU4BkfVX9G0MGzcnnc_pUJImb3WO1e0XtdRwKJbUUc4KmuXw/exec";
       const formData = new FormData();
@@ -194,25 +196,22 @@
         return false;
       }
     }
-    
+
     async function submitAll() {
-      // Ответы
       const answers = {};
       const radios = document.querySelectorAll('input[type="radio"]:checked');
 
       radios.forEach(el => {
-        const name = el.name; 
+        const name = el.name;
         const num = parseInt(name.substring(1));
         answers[num] = parseInt(el.value);
       });
 
-      // Проверка заполнености
       if (Object.keys(answers).length < questions.length) {
         alert(`Пожалуйста, ответьте на все вопросы. Заполнено ${Object.keys(answers).length} из ${questions.length}.`);
         return;
       }
 
-      // Расчёт
       const scaleResults = {};
       let totalScore = 0;
       let maxScore = questions.length * 5;
@@ -257,7 +256,6 @@
 
       console.log("📊 Результаты:", result);
 
-      // localStorage
       const testResults = JSON.parse(localStorage.getItem('testResults') || '[]');
       const currentIndex = parseInt(localStorage.getItem('currentTestIndex') || '0');
 
@@ -272,11 +270,9 @@
       };
       localStorage.setItem('testResults', JSON.stringify(testResults));
 
-      //  Google Sheets
       const success = await saveToGoogleSheets(result);
 
       if (success) {
-     
         const nextIndex = currentIndex + 1;
         if (nextIndex < testSequence.length) {
           localStorage.setItem('currentTestIndex', nextIndex);
