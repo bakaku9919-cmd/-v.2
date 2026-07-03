@@ -3,140 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Тест СЖО — Смысложизненные ориентации</title>
+  <title>Опросник</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="../desing/css/style.css">
+  <link rel="stylesheet" href="../desing/css/style-bw.css">
 </head>
 <body class="bg-gray-50 min-h-screen">
 
-  <!-- Навигация -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <i class="fa-solid fa-feather-pointed text-indigo-600 text-3xl"></i>
-        <div>
-          <a href="../index.html" class="flex items-center gap-3">
-          <div class="leading-tight">
-           <span class="font-bold text-indigo-700 text-lg">Духовность и Осознанность</span>
-           <span class="block text-gray-500 text-xs">у психологов и педагогов</span>
-         </div>      
-        </div>
-      
-      <div class="hidden md:flex items-center gap-8 text-lg">
-        <a href="../index.html" class="hover:text-indigo-600 transition">Главная</a>
-        <a href="demog.html" class="hover:text-indigo-600 transition">Методики</a>
-        <a href="about.html" class="hover:text-indigo-600 transition">О проекте</a>
-        <a href="#" class="open-privacy-modal" class="hover:text-indigo-600 transition">Конфиденциальность</a>
+  <nav>
+    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+      <a href="../index.html" class="text-lg font-bold">Исследование</a>
+      <div class="flex gap-6">
+        <a href="../index.html">Главная</a>
+        <a href="#" class="open-privacy-modal">Конфиденциальность</a>
       </div>
-
-        <div class="w-10"></div>
-        <div class="w-10"></div>
     </div>
   </nav>
 
-<!-- Основной контент -->
-<div class="max-w-4xl mx-auto px-6 py-10">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+    <div class="question-card">
+      <h2 class="text-xl font-bold text-center mb-2">Опросник</h2>
+      <p class="text-sm text-gray-500 text-center mb-8">
+        Оцените, насколько каждое утверждение соответствует Вам.
+      </p>
 
-  <!-- Экран: Тест  -->
-  <div id="test-screen">
-    <div class="mb-8">
-      <div class="flex justify-between text-sm text-gray-500 mb-2">
-        <span>Вопрос <span id="current-question">1</span> из 20</span>
-        <span id="progress-text">0%</span>
+      <div class="overflow-x-auto">
+        <table class="question-table">
+          <thead>
+            <tr>
+              <th class="text-left py-2 pr-4">Вопрос</th>
+              <th class="text-center py-2 px-1 w-10">-3</th>
+              <th class="text-center py-2 px-1 w-10">-2</th>
+              <th class="text-center py-2 px-1 w-10">-1</th>
+              <th class="text-center py-2 px-1 w-10">0</th>
+              <th class="text-center py-2 px-1 w-10">1</th>
+              <th class="text-center py-2 px-1 w-10">2</th>
+              <th class="text-center py-2 px-1 w-10">3</th>
+            </tr>
+          </thead>
+          <tbody id="questionsContainer">
+          </tbody>
+        </table>
       </div>
-      <div class="bg-gray-200 h-2.5 rounded-full overflow-hidden">
-        <div id="progress-bar" class="h-full bg-indigo-600 transition-all duration-300" style="width: 0%"></div>
-      </div>
-    </div>
 
-    <div class="question-card p-8 md:p-10">
-      <h2 id="question-text" class="text-2xl font-medium mb-8 text-center leading-relaxed"></h2>
-
-      <div id="options" class="mt-6 flex justify-center">
-        <!-- Биполярная шкала сгенерируется JS -->
-      </div>
-    </div>
-
-    <div class="flex justify-between mt-10">
-      <button onclick="prevQuestion()" class="btn-test btn-test-prev">← Назад</button>
-      <div class="text-sm text-gray-400 self-center">Выберите значение — переход автоматический</div>
-    </div>
-  </div>
-
-  <!-- Экран: Результат -->
-  <div id="result-screen" class="hidden">
-    <div class="result-card text-center">
-      <h2 class="text-3xl font-light mb-6">Ваш результат</h2>
-      <div id="result-score" class="text-5xl font-bold text-indigo-600 mb-1"></div>
-      <div id="result-level" class="text-2xl font-semibold mb-6"></div>
-      <div id="result-description" class="text-left max-w-prose mx-auto"></div>
-
-      <div class="mt-10 flex gap-4 justify-center">
-        <button onclick="restartTest()" class="btn-test btn-test-prev px-8 py-3">Пройти заново</button>
-        <button id="next-test-btn" onclick="goToNextTest()" class="btn-test btn-test-next px-8 py-3">Следующий тест →</button>
+      <div class="mt-10">
+        <button onclick="submitAll()" class="btn-primary w-full">
+          Отправить результаты
+        </button>
       </div>
     </div>
   </div>
-</div>
 
-<script src="../desing/js/sjo.js"></script>
+  <script>
 
-<!-- Модальное окно: Конфиденциальность -->
-  <div id="privacyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6">
-    <div class="absolute inset-0 bg-black opacity-50" aria-hidden="true"></div>
-    <div class="modal-container bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-      <!-- Заголовок -->
-      <div class="bg-indigo-600 text-white px-8 py-6">
-        <h3 class="text-2xl font-semibold">Политика конфиденциальности</h3>
-      </div>
+    let gender = "";
+    let age = "";
+    let education = "";
+    let participantId = localStorage.getItem('participantId') || "";
 
-      <div class="p-8 overflow-y-auto max-h-[60vh] text-gray-700 space-y-4 text-sm md:text-base">
-        <p><strong>Дата вступления в силу:</strong> 1 апреля 2025 г.</p>
+    try {
+      const participantData = JSON.parse(localStorage.getItem('participantData') || '{}');
+      gender = participantData.gender || "";
+      age = participantData.age || "";
+      education = participantData.education || "";
+      console.log("✅ Данные анкеты загружены:", { gender, age, education, participantId });
+    } catch (e) {
+      console.warn("⚠️ Нет данных анкеты, используются пустые значения");
+    }
 
-        <p>Проект «Духовные способности и осознанность у психологов и педагогов» уважает Вашу конфиденциальность. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем и защищаем Ваши персональные данные при прохождении онлайн-методик.</p>
+    const questions = [
+      ["Обычно мне очень скучно.", "Обычно я полон энергии."],
+      ["Жизнь кажется мне всегда волнующей и захватывающей.", "Жизнь кажется мне совершенно спокойной и рутинной."],
+      ["В жизни я не имею определенных целей и намерений.", "В жизни я имею очень ясные цели и намерения."],
+      ["Моя жизнь представляется мне крайне бессмысленной и бесцельной.", "Моя жизнь представляется мне вполне осмысленной и целеустремленной."],
+      ["Каждый день кажется мне всегда новым и непохожим на другие.", "Каждый день кажется мне совершенно похожим на все другие."],
+      ["Когда я уйду на пенсию, я займусь интересными вещами, которыми всегда мечтал заняться.", "Когда я уйду на пенсию, я постараюсь не обременять себя никакими заботами."],
+      ["Моя жизнь сложилась именно так, как я мечтал.", "Моя жизнь сложилась совсем не так, как я мечтал."],
+      ["Я не добился успехов в осуществлении своих жизненных планов.", "Я осуществил многое из того, что было мною запланировано в жизни."],
+      ["Моя жизнь пуста и неинтересна.", "Моя жизнь наполнена интересными делами."],
+      ["Если бы мне пришлось подводить сегодня итог моей жизни, то я бы сказал, что она была вполне осмысленной.", "Если бы мне пришлось сегодня подводить итог моей жизни, то я бы сказал, что она не имела смысла."],
+      ["Если бы я мог выбирать, то я бы построил свою жизнь совершенно иначе.", "Если бы я мог выбирать, то я бы прожил жизнь еще раз так же, как живу сейчас."],
+      ["Когда я смотрю на окружающий меня мир, он часто приводит меня в растерянность и беспокойство.", "Когда я смотрю на окружающий меня мир, он совсем не вызывает у меня беспокойства и растерянности."],
+      ["Я человек очень обязательный.", "Я человек совсем не обязательный."],
+      ["Я полагаю, что человек имеет возможность осуществить свой жизненный выбор по своему желанию.", "Я полагаю, что человек лишен возможности выбирать из-за влияния природных способностей и обстоятельств."],
+      ["Я определенно могу назвать себя целеустремленным человеком.", "Я не могу назвать себя целеустремленным человеком."],
+      ["В жизни я еще не нашел своего призвания и ясных целей.", "В жизни я нашел свое призвание и цели."],
+      ["Мои жизненные взгляды еще не определились.", "Мои жизненные взгляды вполне определились."],
+      ["Я считаю, что мне удалось найти призвание и интересные цели в жизни.", "Я едва ли способен найти призвание и интересные цели в жизни."],
+      ["Моя жизнь в моих руках, и я сам управляю ею.", "Моя жизнь не подвластна мне и она управляется внешними событиями."],
+      ["Мои повседневные дела приносят мне удовольствие и удовлетворение.", "Мои повседневные дела приносят мне сплошные неприятности и переживания."]
+    ];
 
-        <h4 class="font-semibold text-gray-800 mt-6">1. Сбор информации</h4>
-        <p>Мы собираем следующие данные:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>Пол, возраст, уровень образования, сфера занятости, стаж работы</li>
-          <li>Ответы на вопросы методик</li>
-          <li>Открытые ответы (текстовые поля)</li>
-          <li>Технические данные: Дату/время прохождения (не привязываются к личности)</li>
-        </ul>
+    // Шкалы
+    const scales = {
+      "Цели в жизни": [3, 4, 10, 16, 17, 18],
+      "Процесс жизни": [1, 2, 4, 5, 7, 9],
+      "Результативность жизни": [8, 9, 10, 12, 20],
+      "Локус контроля – Я": [1, 15, 16, 19],
+      "Локус контроля – жизнь": [7, 10, 11, 14, 18, 19]
+    };
 
-        <h4 class="font-semibold text-gray-800 mt-6">2. Цели использования</h4>
-        <p>Вся информация используется исключительно:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>Для научного анализа в рамках диссертационного исследования</li>
-          <li>Без передачи третьим лицам</li>
-        </ul>
+    // Инверсия
+    const reverseItems = [2, 5, 6, 7, 10, 13, 14, 15, 18, 19, 20];
 
-        <h4 class="font-semibold text-gray-800 mt-6">3. Анонимность</h4>
-        <p>Все данные обезличены. Имена, фамилии, электронные адреса не собираются. Вы не идентифицируете себя — Ваше участие полностью анонимно.</p>
+    const testSequence = [
+      { id: "life-prod", title: "Опросник 1", file: "life-prod.html" },
+      { id: "spiritual-orientation", title: "Опросник 2", file: "spirit-orient.html" },
+      { id: "spiritual-personality", title: "Опросник 3", file: "spirit-person.html" },
+      { id: "altruism", title: "Опросник 4", file: "altruism.html" },
+      { id: "sjo", title: "Опросник 5", file: "sjo.html" },
+      { id: "wisdom", title: "Опросник 6", file: "wisdom.html" },
+      { id: "reflex", title: "Опросник 7", file: "reflex.html" },
+      { id: "self-inter", title: "Опросник 8", file: "self-inter.html" },
+      { id: "pfoo", title: "Опросник 9", file: "pfoo.html" },
+      { id: "motiv", title: "Опросник 10", file: "motiv.html" }
+    ];
 
-        <h4 class="font-semibold text-gray-800 mt-6">4. Хранение данных</h4>
-        <p>Ответы сохраняются в защищённых таблицах Google. Доступ ограничен исследователю. Данные хранятся до завершения исследования, после чего архивируются или удаляются.</p>
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      let html = '';
+      questions.forEach((pair, index) => {
+        const num = index + 1;
+        html += `
+          <tr>
+            <td class="q-text text-sm py-2 pr-4">${num}. ${pair[0]} — ${pair[1]}</td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="-3" id="q${num}_-3">
+              <label for="q${num}_-3">-3</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="-2" id="q${num}_-2">
+              <label for="q${num}_-2">-2</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="-1" id="q${num}_-1">
+              <label for="q${num}_-1">-1</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="0" id="q${num}_0">
+              <label for="q${num}_0">0</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="1" id="q${num}_1">
+              <label for="q${num}_1">1</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="2" id="q${num}_2">
+              <label for="q${num}_2">2</label>
+            </td>
+            <td class="q-options text-center py-2 px-1">
+              <input type="radio" name="q${num}" value="3" id="q${num}_3">
+              <label for="q${num}_3">3</label>
+            </td>
+          </tr>
+        `;
+      });
+      container.innerHTML = html;
+    }
 
-        <h4 class="font-semibold text-gray-800 mt-6">5. Ваши права</h4>
-        <p>Вы можете:</p>
-        <ul class="list-disc list-inside ml-4 space-y-1">
-          <li>Отказаться от участия в любой момент</li>
-          <li>Прекратить прохождение теста без пояснений</li>
-        </ul>
+    // GOOGLE SHEETS
+    async function saveToGoogleSheets(data) {
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxaH8oWEE0mkKv89nnS-IMU4BkfVX9G0MGzcnnc_pUJImb3WO1e0XtdRwKJbUUc4KmuXw/exec";
+      const formData = new FormData();
 
-        <h4 class="font-semibold text-gray-800 mt-6">6. Изменения в политике</h4>
-        <p>Мы можем обновлять эту политику. Актуальная версия всегда доступна по ссылке «Конфиденциальность» на сайте.</p>
+      formData.append("participant_id", participantId);
+      formData.append("test_name", "СЖО (Смысложизненные ориентации)");
+      formData.append("gender", gender);
+      formData.append("age", age);
+      formData.append("education", education);
+      formData.append("total_score", data.totalScore);
+      formData.append("percentage", data.percentage);
+      formData.append("level", data.level);
 
-        <p class="italic text-gray-600 mt-6">Спасибо за доверие и участие в научном исследовании!</p>
-      </div>
+      for (const [key, value] of Object.entries(data.scaleResults)) {
+        formData.append(`scale_${key}`, value);
+      }
 
-      <div class="bg-gray-50 px-8 py-6 flex justify-end">
-        <button class="btn-test btn-test-next px-8 py-3">Закрыть</button>
-      </div>
-    </div>
-  </div>
-  <script src="desing/js/main.js"></script>
-  
+      try {
+        await fetch(scriptURL, { method: "POST", body: formData, mode: "no-cors" });
+        console.log("✅ Результаты 'СЖО' отправлены");
+        return true;
+      } catch (e) {
+        console.error("❌ Ошибка отправки:", e);
+        return false;
+      }
+    }
+
+    async function submitAll() {
+      const answers = {};
+      const radios = document.querySelectorAll('input[type="radio"]:checked');
+
+      radios.forEach(el => {
+        const name = el.name;
+        const num = parseInt(name.substring(1));
+        answers[num] = parseInt(el.value);
+      });
+
+      if (Object.keys(answers).length < questions.length) {
+        alert(`Пожалуйста, ответьте на все вопросы. Заполнено ${Object.keys(answers).length} из ${questions.length}.`);
+        return;
+      }
+
+      // Перевод в нормальное значение ===
+      const normalized = {};
+      for (let i = 1; i <= 20; i++) {
+        const val = answers[i] || 0;
+        normalized[i] = reverseItems.includes(i) ? -val : val;
+      }
+
+      // Расчет
+      const scaleResults = {};
+      let totalRaw = 0;
+
+      for (const [name, indices] of Object.entries(scales)) {
+        let rawScore = 0;
+        indices.forEach(num => {
+          rawScore += normalized[num] || 0;
+        });
+        const maxPoints = indices.length * 3;
+        const positiveScore = rawScore + maxPoints;
+        const maxScoreForScale = maxPoints * 2;
+        const percent = Math.round((positiveScore / maxScoreForScale) * 100);
+        scaleResults[name] = positiveScore;
+        totalRaw += rawScore;
+      }
+
+      // Общий бал
+      const totalPositive = totalRaw + 60;
+      const totalMax = 120;
+      const percentage = Math.round((totalPositive / totalMax) * 100);
+
+      let level, description;
+      if (percentage >= 80) {
+        level = "Очень высокий уровень";
+        description = "Вы обладаете ясными жизненными целями, ощущаете ценность жизни и активно развиваетесь.";
+      } else if (percentage >= 65) {
+        level = "Высокий уровень";
+        description = "Вы склонны к осмысленному образу жизни.";
+      } else if (percentage >= 50) {
+        level = "Средний уровень";
+        description = "Смысл жизни присутствует, но требует углубления.";
+      } else if (percentage >= 35) {
+        level = "Ниже среднего";
+        description = "Жизненные цели слабо выражены.";
+      } else {
+        level = "Низкий уровень";
+        description = "Возможно, вы переживаете экзистенциальный вакуум.";
+      }
+
+      const result = {
+        totalScore: totalPositive,
+        percentage,
+        level,
+        description,
+        scaleResults
+      };
+
+      console.log("📊 Результаты:", result);
+
+      const testResults = JSON.parse(localStorage.getItem('testResults') || '[]');
+      const currentIndex = parseInt(localStorage.getItem('currentTestIndex') || '0');
+
+      testResults[currentIndex] = {
+        id: testSequence[currentIndex]?.id || "sjo",
+        name: testSequence[currentIndex]?.title || "Опросник",
+        totalScore: totalPositive,
+        percentage,
+        level,
+        scaleResults,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('testResults', JSON.stringify(testResults));
+
+      const success = await saveToGoogleSheets(result);
+
+      if (success) {
+        const nextIndex = currentIndex + 1;
+        if (nextIndex < testSequence.length) {
+          localStorage.setItem('currentTestIndex', nextIndex);
+          window.location.href = testSequence[nextIndex].file;
+        } else {
+          window.location.href = "../complete.html";
+        }
+      } else {
+        alert("Произошла ошибка при отправке данных. Попробуйте ещё раз.");
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuestions();
+    });
+  </script>
+
 </body>
 </html>
