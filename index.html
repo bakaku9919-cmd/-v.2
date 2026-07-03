@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Исследование</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="desing/css/style-bw.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <nav>
+    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+      <a href="index.html" class="text-lg font-bold">Исследование</a>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-black transition">Главная</a>
+        <a href="#" class="open-privacy-modal hover:text-black transition">Конфиденциальность</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-3xl mx-auto px-6 py-20 text-center">
+
+    <div class="question-card">
+      <h1 class="text-3xl font-bold mb-6">Добро пожаловать!</h1>
+      
+      <p class="text-gray-700 text-lg mb-6">
+        Данное исследование посвящено изучению <strong>личностных особенностей</strong> 
+        лиц в возрастном диапазоне от <strong>18 до 70 лет</strong>.
+      </p>
+
+      <p class="text-gray-600 mb-8">
+        Ваше участие поможет нам лучше понять закономерности развития личности 
+        в современном обществе.
+      </p>
+
+      <hr class="my-8 border-gray-300">
+
+      <h2 class="text-xl font-semibold mb-4">Что вас ждёт?</h2>
+      
+      <ul class="text-left text-gray-700 space-y-2 max-w-md mx-auto mb-8">
+        <li>• <strong>Краткая анкета</strong> (2–3 минуты)</li>
+        <li>• <strong>Серия опросников</strong> (общее время ~30–40 минут)</li>
+        <li>• <strong>Полная анонимность</strong> — ваши данные не связываются с личностью</li>
+      </ul>
+
+      <p class="text-sm text-gray-500 mb-8">
+        Вы можете прервать прохождение в любой момент и вернуться позже — 
+        прогресс будет сохранён.
+      </p>
+
+      <a href="consent.html" class="btn-primary inline-block">
+        Начать участие →
+      </a>
+
+      <p class="text-xs text-gray-400 mt-6">
+        * Нажимая «Начать участие», вы подтверждаете, что ознакомлены с условиями 
+        и даёте информированное согласие.
+      </p>
+    </div>
+
+
+    <div class="mt-10 text-sm text-gray-500">
+      <p>По всем вопросам: <a href="mailto:research@example.com" class="text-gray-700 underline">research@example.com</a></p>
+    </div>
+
+  </div>
+
+
+  <footer class="mt-16 py-6 border-t border-gray-200 text-center text-sm text-gray-500">
+    <p>© 2026 • Исследовательский проект</p>
+  </footer>
+
+  <!-- Модальное окно: Конфиденциальность -->
+  <div id="privacyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6">
+    <div class="absolute inset-0 bg-black opacity-50" aria-hidden="true"></div>
+    <div class="modal-container bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative z-10">
+      <div class="bg-black text-white px-8 py-6">
+        <h3 class="text-2xl font-semibold">Политика конфиденциальности</h3>
+      </div>
+      <div class="p-8 overflow-y-auto max-h-[60vh] text-gray-700 space-y-4 text-sm md:text-base">
+        <p><strong>Дата вступления в силу:</strong> 1 апреля 2025 г.</p>
+        <p>Данное исследование уважает Вашу конфиденциальность. Все данные собираются анонимно и используются исключительно в научных целях.</p>
+        <p class="italic text-gray-600 mt-6">Спасибо за доверие и участие в исследовании!</p>
+      </div>
+      <div class="bg-gray-50 px-8 py-6 flex justify-end">
+        <button class="btn-primary close-modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="desing/js/main.js"></script>
+</body>
+</html>
