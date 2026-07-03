@@ -23,7 +23,7 @@
   <div class="max-w-2xl mx-auto px-6 py-16">
     <div class="question-card">
       <h1 class="text-2xl font-semibold text-center mb-6">Анкета участника</h1>
-      
+
       <p class="text-sm text-gray-500 text-center mb-8">
         Пожалуйста, ответьте на несколько вопросов о себе. Это займёт не более 2 минут.
       </p>
@@ -38,6 +38,7 @@
             <label><input type="radio" name="gender" value="other" class="mr-1"> Другой</label>
           </div>
         </div>
+
         <div>
           <label class="block text-sm font-medium mb-2">Ваш возраст (лет):</label>
           <input type="number" id="age" placeholder="Например: 34" class="w-full p-3 border border-gray-300 rounded-lg">
@@ -56,7 +57,7 @@
             <option value="other">Другое</option>
           </select>
         </div>
-        
+
         <div>
           <label class="block text-sm font-medium mb-2">Ваша специальность / Кем работаете?</label>
           <input type="text" id="profession" placeholder="Например: преподаватель, психолог, инженер..." class="w-full p-3 border border-gray-300 rounded-lg">
@@ -66,6 +67,7 @@
           <label class="block text-sm font-medium mb-2">Место работы / учебы:</label>
           <input type="text" id="workplace" placeholder="Например: школа, университет, частная практика..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
+
       </div>
 
       <button onclick="startFirstTest()" class="btn-primary w-full mt-8">
@@ -74,50 +76,97 @@
     </div>
   </div>
 
-<script>
-  function startFirstTest() {
-    const data = {
-      gender: document.querySelector('input[name="gender"]:checked')?.value || "",
-      age: document.getElementById('age').value,
-      education: document.getElementById('education').value,
-      profession: document.getElementById('profession').value,
-      workplace: document.getElementById('workplace').value,
-      totalExperience: document.getElementById('total-experience').value,
-      specialExperience: document.getElementById('special-experience').value,
-      timestamp: new Date().toISOString()
-    };
+  <!-- Модальное окно: Конфиденциальность -->
+  <div id="privacyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6">
+    <div class="absolute inset-0 bg-black opacity-50" aria-hidden="true"></div>
+    <div class="modal-container bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative z-10">
+      <div class="bg-black text-white px-8 py-6">
+        <h3 class="text-2xl font-semibold">Политика конфиденциальности</h3>
+      </div>
+      <div class="p-8 overflow-y-auto max-h-[60vh] text-gray-700 space-y-4 text-sm md:text-base">
+        <p><strong>Дата вступления в силу:</strong> 1 апреля 2025 г.</p>
+        <p>Данное исследование уважает Вашу конфиденциальность. Все данные собираются анонимно и используются исключительно в научных целях.</p>
+        <p class="italic text-gray-600 mt-6">Спасибо за доверие и участие в исследовании!</p>
+      </div>
+      <div class="bg-gray-50 px-8 py-6 flex justify-end">
+        <button class="btn-primary close-modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
 
-    // ID участника
-    const participantId = 'P_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
-    localStorage.setItem('participantId', participantId);
-    localStorage.setItem('participantData', JSON.stringify(data));
-    localStorage.setItem('currentTestIndex', '0');
-    localStorage.setItem('testResults', JSON.stringify([]));
-    localStorage.setItem('consentGiven', 'true');
+  <script src="desing/js/main.js"></script>
 
-    // Google Sheets
-    sendToGoogleSheets(data, "Анкета");
+  <script>
+    // Генерация ID участника 
+    function generateParticipantId() {
+      const timestamp = Date.now();
+      const random = Math.random().toString(36).substring(2, 6);
+      return `P_${timestamp}_${random}`;
+    }
 
-    window.location.href = "tests/life-prod.html";
-  }
+    // GOOGLE SHEETS
+    async function sendToGoogleSheets(data, sheetName) {
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxaH8oWEE0mkKv89nnS-IMU4BkfVX9G0MGzcnnc_pUJImb3WO1e0XtdRwKJbUUc4KmuXw/exec";
+      const formData = new FormData();
 
-  async function sendToGoogleSheets(data, sheetName) {
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxaH8oWEE0mkKv89nnS-IMU4BkfVX9G0MGzcnnc_pUJImb3WO1e0XtdRwKJbUUc4KmuXw/exec";
-    const formData = new FormData();
-    formData.append("test_name", sheetName);
-    for (const [key, value] of Object.entries(data)) {
-      if (value !== undefined && value !== "") {
-        formData.append(key, value);
+      formData.append("test_name", sheetName);
+
+      for (const [key, value] of Object.entries(data)) {
+        if (value !== undefined && value !== "") {
+          formData.append(key, value);
+        }
+      }
+
+      try {
+        await fetch(scriptURL, { method: "POST", body: formData, mode: "no-cors" });
+        console.log(`✅ ${sheetName} отправлена в Google Sheets`);
+        return true;
+      } catch (e) {
+        console.error("❌ Ошибка отправки:", e);
+        return false;
       }
     }
-    try {
-      await fetch(scriptURL, { method: "POST", body: formData, mode: "no-cors" });
-      console.log("✅ Анкета отправлена");
-    } catch (e) {
-      console.error("❌ Ошибка:", e);
+
+    async function startFirstTest() {
+
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+      if (!gender) {
+        alert("Пожалуйста, укажите ваш пол.");
+        return;
+      }
+
+      const age = document.getElementById('age').value.trim();
+      if (!age) {
+        alert("Пожалуйста, укажите ваш возраст.");
+        return;
+      }
+
+      // ID участника
+      const participantId = generateParticipantId();
+      console.log("🆔 Сгенерирован ID участника:", participantId);
+
+      const data = {
+        participant_id: participantId,
+        gender: gender,
+        age: age,
+        education: document.getElementById('education').value,
+        profession: document.getElementById('profession').value,
+        workplace: document.getElementById('workplace').value,
+        timestamp: new Date().toISOString()
+      };
+
+      // localStorage
+      localStorage.setItem('participantId', participantId);
+      localStorage.setItem('participantData', JSON.stringify(data));
+      localStorage.setItem('currentTestIndex', '0');
+      localStorage.setItem('testResults', JSON.stringify([]));
+
+      // Google Sheets
+      await sendToGoogleSheets(data, "Анкета");
+
+      window.location.href = "tests/life-prod.html";
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
