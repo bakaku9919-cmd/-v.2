@@ -162,6 +162,7 @@
       localStorage.setItem('testResults', JSON.stringify([]));
 
       // Google Sheets
+      console.log("📤 Данные для отправки:", data);
       await sendToGoogleSheets(data, "Анкета");
 
       window.location.href = "tests/life-prod.html";
