@@ -132,6 +132,7 @@
       const formData = new FormData();
       formData.append("participant_id", participantId);
       formData.append("test_name", "Марлоу-Краун (мотивация одобрения)");
+      formData.append("timestamp", new Date().toISOString());
       formData.append("gender", gender);
       formData.append("age", age);
       formData.append("education", education);
