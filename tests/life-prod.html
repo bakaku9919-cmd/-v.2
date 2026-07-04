@@ -367,7 +367,13 @@
           formData.append(key, value);
         }
       }
-
+      // блок В
+      for (let i = 1; i <= 7; i++) {
+        const key = `v${i}`;
+        const value = data[key] || "";
+        formData.append(`open_answer_${i}`, value);
+      }
+      
       try {
         await fetch(scriptURL, { method: "POST", body: formData, mode: "no-cors" });
         console.log("✅ Результаты отправлены в Google Sheets");
