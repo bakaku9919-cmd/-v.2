@@ -362,11 +362,6 @@
       formData.append("age", age);
       formData.append("education", education);
 
-      for (const [key, value] of Object.entries(data)) {
-        if (value !== undefined && value !== "") {
-          formData.append(key, value);
-        }
-      }
       // блок В
       for (let i = 1; i <= 7; i++) {
         const key = `v${i}`;
