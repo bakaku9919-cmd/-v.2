@@ -13,14 +13,12 @@
     <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
       <a href="index.html" class="text-lg font-bold">Исследование</a>
       <div class="flex gap-6">
-        <a href="index.html" class="hover:text-black transition">Главная</a>
-        <a href="#" class="open-privacy-modal hover:text-black transition">Конфиденциальность</a>
+        <a href="index.html">Главная</a>
       </div>
     </div>
   </nav>
 
   <div class="max-w-3xl mx-auto px-6 py-20 text-center">
-
     <div class="question-card">
       <h1 class="text-3xl font-bold mb-6">Добро пожаловать!</h1>
       
@@ -30,8 +28,8 @@
       </p>
 
       <p class="text-gray-600 mb-8">
-        Ваше участие поможет нам лучше понять закономерности развития личности 
-        в современном обществе.
+        Ваше участие поможет нам лучше понять развитие личности 
+        в обществе.
       </p>
 
       <hr class="my-8 border-gray-300">
@@ -49,29 +47,21 @@
         прогресс будет сохранён.
       </p>
 
-      <a href="consent.html" class="btn-primary inline-block">
+      <button onclick="startOrResume()" class="btn-primary inline-block">
         Начать участие →
-      </a>
+      </button>
 
       <p class="text-xs text-gray-400 mt-6">
         * Нажимая «Начать участие», вы подтверждаете, что ознакомлены с условиями 
         и даёте информированное согласие.
       </p>
     </div>
-
-
-    <div class="mt-10 text-sm text-gray-500">
-      <p>По всем вопросам: <a href="mailto:research@example.com" class="text-gray-700 underline">research@example.com</a></p>
-    </div>
-
   </div>
-
 
   <footer class="mt-16 py-6 border-t border-gray-200 text-center text-sm text-gray-500">
     <p>© 2026 • Исследовательский проект</p>
   </footer>
 
-  <!-- Модальное окно: Конфиденциальность -->
   <div id="privacyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-6">
     <div class="absolute inset-0 bg-black opacity-50" aria-hidden="true"></div>
     <div class="modal-container bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative z-10">
@@ -90,5 +80,42 @@
   </div>
 
   <script src="desing/js/main.js"></script>
+
+  <script>
+    function startOrResume() {
+
+      const participantId = localStorage.getItem('participantId');
+      const currentIndex = localStorage.getItem('currentTestIndex');
+
+      if (participantId && currentIndex !== null) {
+
+        const index = parseInt(currentIndex);
+        const testSequence = [
+          { file: "tests/life-prod.html" },
+          { file: "tests/spirit-orient.html" },
+          { file: "tests/spirit-person.html" },
+          { file: "tests/altruism.html" },
+          { file: "tests/sjo.html" },
+          { file: "tests/wisdom.html" },
+          { file: "tests/reflex.html" },
+          { file: "tests/self-inter.html" },
+          { file: "tests/pfoo.html" },
+          { file: "tests/motiv.html" }
+        ];
+
+        if (index < testSequence.length) {
+
+          window.location.href = testSequence[index].file;
+        } else {
+
+          window.location.href = "complete.html";
+        }
+      } else {
+
+        window.location.href = "consent.html";
+      }
+    }
+  </script>
+
 </body>
 </html>
