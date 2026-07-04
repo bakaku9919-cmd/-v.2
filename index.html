@@ -57,6 +57,12 @@
       </p>
     </div>
   </div>
+  
+<div class="text-center text-sm text-gray-400 mt-8">
+  <a href="#" onclick="resetProgress()" class="hover:text-gray-600 transition">
+    Начать заново (сбросить прогресс)
+  </a>
+</div>
 
   <footer class="mt-16 py-6 border-t border-gray-200 text-center text-sm text-gray-500">
     <p>© 2026 • Исследовательский проект</p>
@@ -115,6 +121,17 @@
         window.location.href = "consent.html";
       }
     }
+
+    function resetProgress() {
+  if (confirm("Вы уверены? Весь прогресс будет удалён, и вы начнёте прохождение с самого начала.")) {
+    localStorage.removeItem('participantId');
+    localStorage.removeItem('participantData');
+    localStorage.removeItem('currentTestIndex');
+    localStorage.removeItem('testResults');
+    localStorage.removeItem('consentGiven');
+    window.location.href = "index.html";
+  }
+}
   </script>
 
 </body>
