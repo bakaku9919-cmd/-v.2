@@ -60,34 +60,46 @@
             <option value="widowed">Вдовец / Вдова</option>
           </select>
         </div>
+
+         <div>
+          <label class="block text-sm font-medium mb-2">Есть ли у вас дети?</label>
+          <div class="flex gap-6">
+            <label><input type="radio" name="has_children" value="yes" class="mr-1"> Да</label>
+            <label><input type="radio" name="has_children" value="no" class="mr-1"> Нет</label>
+          </div>
+        </div>
         
-         <div> 
+        <div>
           <label class="block text-sm font-medium mb-2">Ваше образование:</label>
           <select id="education" class="w-full p-3 border border-gray-300 rounded-lg">
             <option value="">Выберите...</option>
-            <option value="bachelor">Бакалавриат</option>
-            <option value="specialist">Специалитет</option>
+            <option value="secondary">Средне-специальное</option>
+            <option value="incomplete">Неоконченное высшее</option>
+            <option value="bachelor">Бакалавриат / Специалитет</option>
             <option value="master">Магистратура</option>
             <option value="phd">Ученая степень</option>
-            <option value="incomplete">Неоконченное высшее</option>
-            <option value="secondary">Средне-специальное</option>
             <option value="other">Другое</option>
           </select>
         </div>
         
         <div>
           <label class="block text-sm font-medium mb-2">Ваша специальность по диплому об образовании:</label>
-          <input type="text" id="diploma_specialty" placeholder="Например: психолог, педагог, инженер..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <input type="text" id="diploma_specialty" placeholder="Например: педагокика, психология, инженерия..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
         <div>
           
         <div>
-          <label class="block text-sm font-medium mb-2">Сфера деятельности в настоящее время:</label>
-          <input type="text" id="work_field" placeholder="Например: образование, медицина, IT..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <label class="block text-sm font-medium mb-2">Кем вы работаете в настоящее время?</label>
+          <input type="text" id="work_position" placeholder="Например: психологом, преподавателем..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">Общий стаж работы (лет):</label>
+          <label class="block text-sm font-medium mb-2">Место работы:</label>
+          <input type="text" id="workplace" placeholder="Например: школа, университет, частная практика..." class="w-full p-3 border border-gray-300 rounded-lg">
+        </div>
+          
+        <div>
+          <label class="block text-sm font-medium mb-2">Стаж работы (лет):</label>
           <input type="number" id="total_experience" placeholder="Например: 10" class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
 
@@ -182,9 +194,11 @@
         age: age,
         city: document.getElementById('city').value,
         marital_status: document.getElementById('marital_status').value,
+        has_children: document.querySelector('input[name="has_children"]:checked')?.value || "",
         education: document.getElementById('education').value,
         diploma_specialty: document.getElementById('diploma_specialty').value,
-        work_field: document.getElementById('work_field').value,
+        work_position: document.getElementById('work_position').value,
+        workplace: document.getElementById('workplace').value,
         total_experience: document.getElementById('total_experience').value,
         email: document.getElementById('email').value,
         timestamp: new Date().toISOString()
