@@ -42,9 +42,26 @@
         <div>
           <label class="block text-sm font-medium mb-2">Ваш возраст (лет):</label>
           <input type="number" id="age" placeholder="Например: 34" class="w-full p-3 border border-gray-300 rounded-lg">
-        </div>
-
+        </div> 
+        
         <div>
+          <label class="block text-sm font-medium mb-2">Город проживания:</label>
+          <input type="text" id="city" placeholder="Например: Москва, Санкт-Петербург..." class="w-full p-3 border border-gray-300 rounded-lg">
+        </div>
+        
+         <div>
+          <label class="block text-sm font-medium mb-2">Семейное положение:</label>
+          <select id="marital_status" class="w-full p-3 border border-gray-300 rounded-lg">
+            <option value="">Выберите...</option>
+            <option value="married">Состою в браке</option>
+            <option value="cohabiting">Гражданский брак</option>
+            <option value="single">Холост / Не замужем</option>
+            <option value="divorced">Разведён(а)</option>
+            <option value="widowed">Вдовец / Вдова</option>
+          </select>
+        </div>
+        
+         <div> 
           <label class="block text-sm font-medium mb-2">Ваше образование:</label>
           <select id="education" class="w-full p-3 border border-gray-300 rounded-lg">
             <option value="">Выберите...</option>
@@ -57,19 +74,33 @@
             <option value="other">Другое</option>
           </select>
         </div>
-
+        
         <div>
-          <label class="block text-sm font-medium mb-2">Ваша специальность / Кем работаете?</label>
-          <input type="text" id="profession" placeholder="Например: преподаватель, психолог, инженер..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <label class="block text-sm font-medium mb-2">Ваша специальность по диплому об образовании:</label>
+          <input type="text" id="diploma_specialty" placeholder="Например: психолог, педагог, инженер..." class="w-full p-3 border border-gray-300 rounded-lg">
+        </div>
+        <div>
+          
+        <div>
+          <label class="block text-sm font-medium mb-2">Сфера деятельности в настоящее время:</label>
+          <input type="text" id="work_field" placeholder="Например: образование, медицина, IT..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-2">Место работы / учебы:</label>
-          <input type="text" id="workplace" placeholder="Например: школа, университет, частная практика..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <label class="block text-sm font-medium mb-2">Общий стаж работы (лет):</label>
+          <input type="number" id="total_experience" placeholder="Например: 10" class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
 
-      </div>
-
+        <div>
+          <label class="block text-sm font-medium mb-2">Ваш email (необязательно):</label>
+          <input type="email" id="email" placeholder="Например: example@mail.ru" class="w-full p-3 border border-gray-300 rounded-lg">
+          <p class="text-xs text-gray-400 mt-1">
+            Если вы хотите получить результаты исследования, укажите email. 
+            Данные будут отправлены в течение 7 рабочих дней.
+          </p>
+        </div>
+  </div>
+        
       <button onclick="startFirstTest()" class="btn-primary w-full mt-8">
         Продолжить →
       </button>
@@ -149,9 +180,13 @@
         participant_id: participantId,
         gender: gender,
         age: age,
+        city: document.getElementById('city').value,
+        marital_status: document.getElementById('marital_status').value,
         education: document.getElementById('education').value,
-        profession: document.getElementById('profession').value,
-        workplace: document.getElementById('workplace').value,
+        diploma_specialty: document.getElementById('diploma_specialty').value,
+        work_field: document.getElementById('work_field').value,
+        total_experience: document.getElementById('total_experience').value,
+        email: document.getElementById('email').value,
         timestamp: new Date().toISOString()
       };
 
