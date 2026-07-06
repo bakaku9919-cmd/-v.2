@@ -59,17 +59,22 @@
 
       </div>
 
-      <div class="mt-10 text-center">
-        <a href="demog.html" class="btn-primary inline-block">
-          Ознакомлен(а), продолжить →
-        </a>
-      </div>
+      <button onclick="startOrResume()" class="btn-primary inline-block">
+        Начать участие →
+      </button>
 
-      <p class="text-xs text-gray-400 text-center mt-4">
-        * Нажимая «Ознакомлен(а), продолжить», вы подтверждаете, что ознакомлены с условиями участия.
+      <p class="text-xs text-gray-400 mt-6">
+        * Нажимая «Начать участие», вы подтверждаете, что ознакомлены с условиями 
+        и даёте информированное согласие.
       </p>
     </div>
   </div>
+  
+<div class="text-center text-sm text-gray-400 mt-8">
+  <a href="#" onclick="resetProgress()" class="hover:text-gray-600 transition">
+    Начать заново (сбросить прогресс)
+  </a>
+</div>
 
   <footer class="mt-16 py-6 border-t border-gray-200 text-center text-sm text-gray-500">
     <p>© 2026 • Исследовательский проект</p>
@@ -94,6 +99,53 @@
   </div>
 
   <script src="desing/js/main.js"></script>
+
+    <script>
+    function startOrResume() {
+
+      const participantId = localStorage.getItem('participantId');
+      const currentIndex = localStorage.getItem('currentTestIndex');
+
+      if (participantId && currentIndex !== null) {
+
+        const index = parseInt(currentIndex);
+        const testSequence = [
+          { file: "tests/life-prod.html" },
+          { file: "tests/spirit-orient.html" },
+          { file: "tests/spirit-person.html" },
+          { file: "tests/altruism.html" },
+          { file: "tests/sjo.html" },
+          { file: "tests/wisdom.html" },
+          { file: "tests/reflex.html" },
+          { file: "tests/self-inter.html" },
+          { file: "tests/pfoo.html" },
+          { file: "tests/motiv.html" }
+        ];
+
+        if (index < testSequence.length) {
+
+          window.location.href = testSequence[index].file;
+        } else {
+
+          window.location.href = "complete.html";
+        }
+      } else {
+
+        window.location.href = "consent.html";
+      }
+    }
+
+    function resetProgress() {
+  if (confirm("Вы уверены? Весь прогресс будет удалён, и вы начнёте прохождение с самого начала.")) {
+    localStorage.removeItem('participantId');
+    localStorage.removeItem('participantData');
+    localStorage.removeItem('currentTestIndex');
+    localStorage.removeItem('testResults');
+    localStorage.removeItem('consentGiven');
+    window.location.href = "index.html";
+  }
+}
+  </script>
 
 </body>
 </html>
