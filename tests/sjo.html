@@ -6,7 +6,33 @@
   <title>Опросник</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../desing/css/style-bw.css">
+  <style>
+    .scale-label {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+      width: 28px;
+    }
+    .scale-label input[type="radio"] {
+      margin-bottom: 2px;
+      width: 16px;
+      height: 16px;
+    }
+    @media (max-width: 768px) {
+      .scale-label {
+        width: 24px;
+        font-size: 0.65rem;
+      }
+      .scale-label input[type="radio"] {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  </style>
 </head>
+  
 <body class="bg-gray-50 min-h-screen">
 
   <nav>
@@ -25,7 +51,10 @@
       <p class="text-sm text-gray-500 text-center mb-8">
         Оцените, насколько каждое утверждение соответствует Вам.
       </p>
+      
+      <div class="space-y-4" id="questionsContainer">
 
+      </div>
       <div class="overflow-x-auto">
         <table class="question-table">
           <thead>
@@ -118,48 +147,31 @@
       { id: "motiv", title: "Опросник 10", file: "motiv.html" }
     ];
 
-    function renderQuestions() {
+        function renderQuestions() {
       const container = document.getElementById('questionsContainer');
       let html = '';
+
       questions.forEach((pair, index) => {
         const num = index + 1;
         html += `
-          <tr>
-            <td class="q-text text-sm py-2 pr-4">${num}. ${pair[0]} — ${pair[1]}</td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="-3" id="q${num}_-3">
-              <label for="q${num}_-3">-3</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="-2" id="q${num}_-2">
-              <label for="q${num}_-2">-2</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="-1" id="q${num}_-1">
-              <label for="q${num}_-1">-1</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="0" id="q${num}_0">
-              <label for="q${num}_0">0</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="1" id="q${num}_1">
-              <label for="q${num}_1">1</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="2" id="q${num}_2">
-              <label for="q${num}_2">2</label>
-            </td>
-            <td class="q-options text-center py-2 px-1">
-              <input type="radio" name="q${num}" value="3" id="q${num}_3">
-              <label for="q${num}_3">3</label>
-            </td>
-          </tr>
+          <div class="flex items-start gap-2 border-b border-gray-100 pb-3">
+            <span class="text-sm text-gray-700 flex-1 text-right">${num}. ${pair[0]}</span>
+            <div class="flex gap-1 flex-shrink-0">
+              <label class="scale-label"><input type="radio" name="q${num}" value="-3"> 3</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="-2"> 2</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="-1"> 1</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="0"> 0</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="1"> 1</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="2"> 2</label>
+              <label class="scale-label"><input type="radio" name="q${num}" value="3"> 3</label>
+            </div>
+            <span class="text-sm text-gray-700 flex-1 text-left">${pair[1]}</span>
+          </div>
         `;
       });
+
       container.innerHTML = html;
     }
-
     // GOOGLE SHEETS
     async function saveToGoogleSheets(data) {
       const scriptURL = "https://script.google.com/macros/s/AKfycbxhpWs3iBBuulhpDawZFWJ7VMpd632e6AwgH2QwRFhZPaSolaPUa-F9yGHvGkk3-ouj/exec";
