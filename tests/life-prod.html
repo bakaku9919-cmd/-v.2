@@ -380,10 +380,10 @@
     </div>
   </div>
 
-  <!-- Модальное окно с инструкцией -->
-<div id="instructionModal" class="fixed inset-0 z-50 hidden items-center justify-center p-6" style="display: none;">
+<!-- Модальное окно с инструкцией -->
+<div id="instructionModal" class="fixed inset-0 z-50 flex items-center justify-center p-6" style="display: none;">
   <div class="absolute inset-0 bg-black bg-opacity-50" aria-hidden="true"></div>
-  <div class="modal-container bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative z-10 mx-auto my-auto">
+  <div class="modal-container bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden relative z-10">
     <div class="bg-black text-white px-8 py-5">
       <h3 class="text-2xl font-semibold text-center">Инструкция</h3>
     </div>
@@ -417,7 +417,7 @@
     </div>
   </div>
 </div>
-
+  
   <script>
     
     let gender = "";
@@ -591,14 +591,14 @@
   document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('instructionModal');
     if (modal) {
-      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
     }
   });
-
+  
   function closeInstructionModal() {
     const modal = document.getElementById('instructionModal');
     if (modal) {
-      modal.classList.add('hidden');
+      modal.style.display = 'none';
     }
   }
     
