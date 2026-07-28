@@ -15,6 +15,7 @@
       <a href="index.html" class="text-lg font-bold">Исследование</a>
       <div class="flex gap-6">
         <a href="index.html">Главная</a>
+        <a href="#" class="open-privacy-modal">Конфиденциальность</a>
       </div>
     </div>
   </nav>
@@ -26,57 +27,53 @@
       <div class="space-y-6 text-gray-700 text-base leading-relaxed">
 
         <p>
-          Настоящее исследование посвящено изучению 
-          <strong>психологических особенностей</strong> лиц в возрастном диапазоне 
-          от <strong>18 до 70 лет</strong>.
+          <strong>Уважаемый респондент!</strong>
         </p>
 
         <p>
-          Данное исследование проводится исключительно в <strong>научных целях</strong>. 
-          Вам гарантируется <strong>полная анонимность</strong> – данные, представленные вами, 
-          не связываются с вашей личностью.
+          Я провожу исследование с целью изучения <strong>психологических особенностей личности</strong>. 
+          К участию в исследовании приглашаются лица мужского и женского пола в возрасте от <strong>18 до 70 лет</strong>.
         </p>
 
         <p>
-          Вам предлагается ответить на вопросы нескольких методик, 
-          примерное время выполнения которых займет 
-          <strong>40–45 минут</strong>. 
-          Перейти к следующему тесту возможно только после завершения предыдущего.
+          Данное исследование является <strong>анонимным</strong>. 
+          Собранные данные будут использованы в обобщенном виде для написания диссертационной работы по направлению <strong>«Психологические науки»</strong>.
         </p>
 
         <p>
-          Вы можете <strong>прервать прохождение теста</strong> в любой момент времени 
-          и затем <strong>вернуться к нему позднее</strong>.
+          Вам будет предложен ряд методик. <strong>Перейти к следующей методике возможно только по завершении предыдущей</strong>.
+        </p>
+
+        <p>
+          Вы можете сделать <strong>перерыв между прохождением методик</strong>, при этом методика, которую вы выполняете в настоящий момент, должна быть пройдена полностью. 
+          Вы можете приступить к прохождению следующей методики <strong>не позднее 48 часов</strong> после завершения предыдущей.
         </p>
 
         <div class="bg-gray-100 p-4 rounded-lg mt-4">
           <p class="text-sm text-gray-700">
-            После прохождения всех методик вы можете получить 
-            <strong>результаты своего тестирования</strong> по одной из методик 
-            в течение <strong>7 рабочих дней</strong>. Для этого оставьте ваш email в анкете.
+            📋 <strong>По результатам одной из методик</strong> вы получите описание ваших психологических особенностей.
           </p>
         </div>
 
       </div>
 
-     <div class="mt-8 text-center">
-      <button onclick="startOrResume()" class="btn-primary inline-block">
-        Начать участие →
-      </button>
-     </div>
+      <div class="mt-8 text-center">
+        <button onclick="startOrResume()" class="btn-primary inline-block">
+          Начать участие →
+        </button>
+      </div>
 
-      <p class="text-xs text-gray-400 mt-6">
-        * Нажимая «Начать участие», вы подтверждаете, что ознакомлены с условиями 
-        и даёте информированное согласие.
+      <p class="text-xs text-gray-400 text-center mt-6">
+        * Нажимая «Начать участие», вы подтверждаете, что ознакомлены с условиями и даёте информированное согласие.
       </p>
     </div>
   </div>
-  
-<div class="text-center text-sm text-gray-400 mt-8">
-  <a href="#" onclick="resetProgress()" class="hover:text-gray-600 transition">
-    Начать заново (сбросить прогресс)
-  </a>
-</div>
+
+  <div class="text-center text-sm text-gray-400 mt-8">
+    <a href="#" onclick="resetProgress()" class="hover:text-gray-600 transition">
+      Начать заново (сбросить прогресс)
+    </a>
+  </div>
 
   <footer class="mt-16 py-6 border-t border-gray-200 text-center text-sm text-gray-500">
     <p>© 2026 • Исследовательский проект</p>
@@ -102,14 +99,12 @@
 
   <script src="desing/js/main.js"></script>
 
-    <script>
+  <script>
     function startOrResume() {
-
       const participantId = localStorage.getItem('participantId');
       const currentIndex = localStorage.getItem('currentTestIndex');
 
       if (participantId && currentIndex !== null) {
-
         const index = parseInt(currentIndex);
         const testSequence = [
           { file: "tests/life-prod.html" },
@@ -125,28 +120,29 @@
         ];
 
         if (index < testSequence.length) {
-
-          window.location.href = testSequence[index].file;
+          if (confirm("Вы уже начали прохождение. Продолжить с того места, где остановились?")) {
+            window.location.href = testSequence[index].file;
+          }
         } else {
-
-          window.location.href = "complete.html";
+          if (confirm("Вы уже прошли все тесты. Хотите посмотреть результаты?")) {
+            window.location.href = "complete.html";
+          }
         }
       } else {
-
         window.location.href = "demog.html";
       }
     }
 
     function resetProgress() {
-  if (confirm("Вы уверены? Весь прогресс будет удалён, и вы начнёте прохождение с самого начала.")) {
-    localStorage.removeItem('participantId');
-    localStorage.removeItem('participantData');
-    localStorage.removeItem('currentTestIndex');
-    localStorage.removeItem('testResults');
-    localStorage.removeItem('consentGiven');
-    window.location.href = "index.html";
-  }
-}
+      if (confirm("Вы уверены? Весь прогресс будет удалён, и вы начнёте прохождение с самого начала.")) {
+        localStorage.removeItem('participantId');
+        localStorage.removeItem('participantData');
+        localStorage.removeItem('currentTestIndex');
+        localStorage.removeItem('testResults');
+        localStorage.removeItem('consentGiven');
+        window.location.href = "index.html";
+      }
+    }
   </script>
 
 </body>
