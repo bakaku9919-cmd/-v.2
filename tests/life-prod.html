@@ -587,6 +587,21 @@
         alert("Произошла ошибка при отправке данных. Попробуйте ещё раз.");
       }
     }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('instructionModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  });
+
+  function closeInstructionModal() {
+    const modal = document.getElementById('instructionModal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+    
   </script>
 
 </body>
