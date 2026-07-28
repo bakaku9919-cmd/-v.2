@@ -24,6 +24,14 @@
     <div class="question-card">
       <h1 class="text-2xl font-semibold text-center mb-6">Анкета участника</h1>
 
+   <!-- Согласие -->
+  <div class="bg-gray-100 border border-gray-300 rounded-lg p-4 mb-6">
+      <p class="text-xs text-gray-700 leading-relaxed">
+        <strong>Информированное согласие:</strong><br>
+         Заполняя данную анкету, вы выражаете свое согласие на сбор, обработку, использование, запись, хранение, уточнение (обновление, изменение), извлечение, уточнение, обезличивание, блокирование, удаление своих персональных данных, указанных в настоящей анкете, в целях обработки статистической информации.
+      </p>
+  </div>
+      
       <p class="text-sm text-gray-500 text-center mb-8">
         Пожалуйста, ответьте на несколько вопросов о себе. Это займёт не более 2 минут.
       </p>
@@ -70,7 +78,7 @@
         </div>
         
         <div>
-          <label class="block text-sm font-medium mb-2">Ваше образование:</label>
+          <label class="block text-sm font-medium mb-2">Уровень Вашего образования:</label>
           <select id="education" class="w-full p-3 border border-gray-300 rounded-lg">
             <option value="">Выберите...</option>
             <option value="secondary">Средне-специальное</option>
@@ -84,7 +92,7 @@
         
         <div>
           <label class="block text-sm font-medium mb-2">Ваша специальность по диплому об образовании:</label>
-          <input type="text" id="diploma_specialty" placeholder="Например: педагокика, психология, инженерия..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <input type="text" id="diploma_specialty" placeholder="Например: педагогика, психология, инженерия..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
         <div>
           
@@ -95,7 +103,7 @@
 
         <div>
           <label class="block text-sm font-medium mb-2">Место работы:</label>
-          <input type="text" id="workplace" placeholder="Например: школа, университет, частная практика..." class="w-full p-3 border border-gray-300 rounded-lg">
+          <input type="text" id="workplace" placeholder="Например: университет, частная практика..." class="w-full p-3 border border-gray-300 rounded-lg">
         </div>
           
         <div>
@@ -107,8 +115,7 @@
           <label class="block text-sm font-medium mb-2">Ваш email (необязательно):</label>
           <input type="email" id="email" placeholder="Например: example@mail.ru" class="w-full p-3 border border-gray-300 rounded-lg">
           <p class="text-xs text-gray-400 mt-1">
-            Если вы хотите получить результаты исследования, укажите email. 
-            Данные будут отправлены в течение 7 рабочих дней.
+            Если вы хотите получить результаты исследования, укажите email.
           </p>
         </div>
   </div>
